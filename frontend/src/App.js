@@ -6,6 +6,10 @@ import store from './store';
 import Homepage from './screens/Homepage';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import AboutPage from './screens/AboutPage';
+import ContactPage from './screens/ContactPage';
+import ProductPage from './screens/ProductPage';
+import CartPage from './screens/CartPage';
 
 class App extends Component {
    render() {
@@ -13,9 +17,15 @@ class App extends Component {
          <Provider store={store}>
             <Router>
                <Header />
-               <Routes>
-                  <Route path="/" element={<Homepage />} />
-               </Routes>
+               <div className="container">
+                  <Routes>
+                     <Route path="/" element={<Homepage />} />
+                     <Route path="/about" element={<AboutPage />} />
+                     <Route path="/contact" element={<ContactPage />} />
+                     <Route path="/product/:id" element={<ProductPage />} />
+                     <Route path="/cart" element={<CartPage />} />
+                  </Routes>
+               </div>
                <Footer />
             </Router>
          </Provider>

@@ -17,15 +17,13 @@ const Homepage = () => {
    const errorState = useSelector((state) => state.error);
    const { msg } = errorState;
 
-   console.log(errorState);
-
    useEffect(() => {
       dispatch(getProducts());
    }, [dispatch]);
 
    return (
       <div className="homepage">
-         <div className="showcase">
+         <div className="showcase-home">
             <img
                src="https://ocdn.eu/pulscms-transforms/1/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg"
                alt="Snails"
@@ -64,100 +62,23 @@ const Homepage = () => {
          <div className="products">
             {products &&
                products.map((product) => (
-                  <div key={product._id} className="product">
-                     <div className="img">
-                        <img src={product.image} alt={product.name} />
+                  <Link key={product._id} to={`/product/${product._id}`}>
+                     <div className="product">
+                        <div className="img">
+                           <img src={product.image} alt={product.name} />
+                        </div>
+                        <div className="content">
+                           <h3>{product.name}</h3>
+                           <h4># {product.price}</h4>
+                           <p>{product.description}</p>
+                           <button className="btn btn-primary">
+                              Add to Cart
+                           </button>
+                        </div>
                      </div>
-                     <div className="content">
-                        <h3>{product.name}</h3>
-                        <h4># {product.price}</h4>
-                        <p>{product.description}</p>
-                        <button className="btn btn-primary">Add to Cart</button>
-                     </div>
-                  </div>
+                  </Link>
                ))}
          </div>
-         {/* <div className="products">
-            <div className="product">
-               <div className="img">
-                  <img
-                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy1sU8Q5SQ-Fl6nDNqE-J1YfMI1J-haQyYhg&usqp=CAU"
-                     alt="Snail"
-                  />
-               </div>
-               <div className="content">
-                  <h3>Grilled Snail</h3>
-                  <p>
-                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                     Architecto cupiditate consequuntur dolores praesentium
-                     amet, alias quos tenetur molestiae dolore, suscipit, fugiat
-                     neque maxime repellat quae illum veritatis tempora possimus
-                     cumque!
-                  </p>
-                  <button className="btn btn-primary">Add to Cart</button>
-               </div>
-            </div>
-
-            <div className="product">
-               <div className="img">
-                  <img
-                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy1sU8Q5SQ-Fl6nDNqE-J1YfMI1J-haQyYhg&usqp=CAU"
-                     alt="Snail"
-                  />
-               </div>
-               <div className="content">
-                  <h3>Grilled Snail</h3>
-                  <p>
-                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                     Architecto cupiditate consequuntur dolores praesentium
-                     amet, alias quos tenetur molestiae dolore, suscipit, fugiat
-                     neque maxime repellat quae illum veritatis tempora possimus
-                     cumque!
-                  </p>
-                  <button className="btn btn-primary">Add to Cart</button>
-               </div>
-            </div>
-
-            <div className="product">
-               <div className="img">
-                  <img
-                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT947KtGnTKTi_9hN3h6MsjjdaYl0sZftRuzA&usqp=CAU"
-                     alt="Snail"
-                  />
-               </div>
-               <div className="content">
-                  <h3>Grilled Snail</h3>
-                  <p>
-                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                     Architecto cupiditate consequuntur dolores praesentium
-                     amet, alias quos tenetur molestiae dolore, suscipit, fugiat
-                     neque maxime repellat quae illum veritatis tempora possimus
-                     cumque!
-                  </p>
-                  <button className="btn btn-primary">Add to Cart</button>
-               </div>
-            </div>
-
-            <div className="product">
-               <div className="img">
-                  <img
-                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2WK6rR4mL9JI3HRCFuQbAe_dIMMj0AkqliQ&usqp=CAU"
-                     alt="Snail"
-                  />
-               </div>
-               <div className="content">
-                  <h3>Grilled Snail</h3>
-                  <p>
-                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                     Architecto cupiditate consequuntur dolores praesentium
-                     amet, alias quos tenetur molestiae dolore, suscipit, fugiat
-                     neque maxime repellat quae illum veritatis tempora possimus
-                     cumque!
-                  </p>
-                  <button className="btn btn-primary">Add to Cart</button>
-               </div>
-            </div>
-         </div> */}
 
          {/* Our Farm */}
          <OurFarm />

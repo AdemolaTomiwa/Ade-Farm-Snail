@@ -1,0 +1,71 @@
+.cartpage {
+   .cart {
+      background-color: $white-color;
+      margin: 2rem 0;
+
+      .content {
+         width: 90%;
+         margin: auto;
+
+         .boxes {
+            margin-bottom: 2rem;
+            .box {
+               padding: 0.5rem;
+               display: flex;
+               align-items: flex-start;
+               justify-content: space-between;
+               border: 2px solid $primary-color;
+               margin: 0.5rem 0;
+               @include easeOut();
+
+               &:hover {
+                  background-color: darken($white-color, 3%);
+               }
+
+               .main {
+                  display: flex;
+                  align-items: flex-start;
+                  justify-content: flex-start;
+
+                  .img {
+                     width: 150px;
+
+                     img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                     }
+                  }
+
+                  .details {
+                     margin-left: 2rem;
+                     margin-top: 1rem;
+                     display: flex;
+                     align-items: center;
+                     justify-content: center;
+                     flex-direction: column;
+
+                     h4 {
+                        color: $primary-color;
+                     }
+
+                     small {
+                        font-weight: bold;
+                     }
+                  }
+               }
+               flex-direction: column;
+
+               .options {
+                  padding: 1rem 0;
+                  width: 100%;
+                  h5 {
+                     color: $primary-color;
+                     cursor: pointer;
+                  }
+               }
+            }
+         }
+      }
+   }
+}

@@ -7,11 +7,12 @@ import {
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { errorReducer } from './reducers/errorReducers';
-import { productsReducer } from './reducers/productReducers';
+import { productReducer, productsReducer } from './reducers/productReducers';
 
 const reducer = combineReducers({
    error: errorReducer,
    products: productsReducer,
+   product: productReducer,
 });
 
 const initialState = {};
