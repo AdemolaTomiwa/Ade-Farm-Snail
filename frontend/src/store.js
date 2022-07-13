@@ -6,8 +6,13 @@ import {
 } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { errorReducer } from './reducers/errorReducers';
+import { productsReducer } from './reducers/productReducers';
 
-const reducer = combineReducers({});
+const reducer = combineReducers({
+   error: errorReducer,
+   products: productsReducer,
+});
 
 const initialState = {};
 
