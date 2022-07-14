@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Loader = () => {
+const Loader = ({ small }) => {
    return (
       <div className="spinner-wraaper">
-         <div className="spinner"></div>
+         <div className={small ? 'spinner-small' : 'spinner'}></div>
       </div>
    );
 };

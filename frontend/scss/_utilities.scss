@@ -41,6 +41,18 @@ h4 {
    align-items: center;
    justify-content: center;
 
+   .spinner-small {
+      margin: 0;
+      width: 1.5rem;
+      height: 1.5rem;
+      border: 2px solid rgba($grey-color, 1);
+      border-radius: 50%;
+      border-top-color: $primary-color;
+      border-right-color: $primary-color;
+      animation: spinner 2s linear infinite;
+      margin: 1rem 0;
+   }
+
    .spinner {
       margin: 0;
       width: 3rem;
@@ -299,4 +311,52 @@ select {
       pointer-events: none;
       color: $primary-color;
    }
+}
+
+// Form
+form {
+   div {
+      position: relative;
+
+      label {
+         font-size: 14px;
+         font-weight: bold;
+      }
+
+      input {
+         margin: 0.5rem 0;
+         width: 100%;
+         padding: 0.7rem 1rem;
+         outline: none;
+         border: 2px solid $primary-color;
+         font-family: 'Montserrat', sans-serif;
+         font-weight: bold;
+         border-radius: 5px;
+         background-color: transparent;
+         color: $black-color;
+      }
+   }
+
+   .password {
+      position: relative;
+
+      i {
+         position: absolute;
+         top: 61%;
+         right: 1%;
+         transform: translate(-1%, -61%);
+         cursor: pointer;
+         color: $primary-color;
+      }
+   }
+}
+
+.email-verify {
+   width: 100%;
+
+   .btn {
+      margin: auto;
+      margin: 2rem auto;
+   }
+   text-align: center;
 }

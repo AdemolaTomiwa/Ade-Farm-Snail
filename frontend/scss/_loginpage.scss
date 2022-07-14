@@ -1,0 +1,24 @@
+.loginpage,
+.registerpage {
+   .login,
+   .register {
+      .content {
+         width: 90%;
+         margin: auto;
+
+         form {
+            margin: 2rem 0;
+
+            div {
+               .btn {
+                  width: 100%;
+               }
+            }
+
+            a {
+               color: $primary-color;
+            }
+         }
+      }
+   }
+}

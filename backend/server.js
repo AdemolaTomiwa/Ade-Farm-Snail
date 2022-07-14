@@ -1,7 +1,8 @@
+import mongoose from 'mongoose';
 import express from 'express';
 import dotenv from 'dotenv';
 import productRoute from './routes/productRoute.js';
-import mongoose from 'mongoose';
+import userRoute from './routes/userRoute.js';
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ mongoose
 
 // API Routes
 app.use('/api/products', productRoute);
+app.use('/api/users', userRoute);
 
 const PORT = process.env.PORT || 5000;
 

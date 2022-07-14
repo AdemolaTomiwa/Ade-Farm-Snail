@@ -10,6 +10,9 @@ import AboutPage from './screens/AboutPage';
 import ContactPage from './screens/ContactPage';
 import ProductPage from './screens/ProductPage';
 import CartPage from './screens/CartPage';
+import LoginPage from './screens/LoginPage';
+import RegisterPage from './screens/RegisterPage';
+import EmailVerify from './screens/EmailVerify';
 
 class App extends Component {
    render() {
@@ -25,6 +28,9 @@ class App extends Component {
                      <Route path="/product/:id" element={<ProductPage />} />
                      <Route path="/cart" element={<CartPage />} />
                      <Route path="/cart/:id/:qty" element={<CartPage />} />
+                     <Route path="/login" element={<LoginPage />} />
+                     <Route path="/register" element={<RegisterPage />} />
+                     <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
                   </Routes>
                </div>
                <Footer />
