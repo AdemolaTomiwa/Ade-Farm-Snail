@@ -24,6 +24,7 @@ class App extends Component {
                      <Route path="/contact" element={<ContactPage />} />
                      <Route path="/product/:id" element={<ProductPage />} />
                      <Route path="/cart" element={<CartPage />} />
+                     <Route path="/cart/:id/:qty" element={<CartPage />} />
                   </Routes>
                </div>
                <Footer />

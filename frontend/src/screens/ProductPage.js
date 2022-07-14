@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getProduct } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -9,6 +9,7 @@ import Showcase from '../components/Showcase';
 const ProductPage = () => {
    const params = useParams();
    const dispatch = useDispatch();
+   const navigate = useNavigate();
 
    const [qty, setQty] = useState('1');
 
@@ -21,6 +22,10 @@ const ProductPage = () => {
    useEffect(() => {
       dispatch(getProduct(params.id));
    }, [dispatch, params]);
+
+   const addToCartHandler = () => {
+      navigate(`/cart/${params.id}/qty=${qty}`);
+   };
    return (
       <div className="productpage">
          {loading && <Loader />}
@@ -69,7 +74,10 @@ const ProductPage = () => {
                            </aside>
                         </div>
                         <div className="button">
-                           <button className="btn btn-primary">
+                           <button
+                              onClick={addToCartHandler}
+                              className="btn btn-primary"
+                           >
                               Add to Cart
                            </button>
                         </div>
