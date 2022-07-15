@@ -122,26 +122,35 @@ router.post('/auth', (req, res) => {
                .json({ msg: 'User does not exist! Please Register!' });
          }
 
-         bcrypt.compare(password, user.password).then((isMatch) => {
-            if (!isMatch) {
-               return res.status(400).json({ message: 'Invalid credentials!' });
-            }
+         bcrypt
+            .compare(password, user.password)
+            .then((isMatch) => {
+               if (!isMatch) {
+                  return res.status(400).json({ msg: 'Invalid credentials!' });
+               }
 
-            jwt.sign({ id: user._id }, process.env.JWT_SECRET, (err, token) => {
+               jwt.sign(
+                  { id: user._id },
+                  process.env.JWT_SECRET,
+                  (err, token) => {
+                     if (err) throw err;
+                     res.json({
+                        token,
+                        user: {
+                           id: user._id,
+                           firstName: user.firstName,
+                           lastName: user.lastName,
+                           email: user.email,
+                           isAdmin: user.isAdmin,
+                           verified: user.verified,
+                        },
+                     });
+                  }
+               );
+            })
+            .catch((err) => {
                if (err) throw err;
-               res.json({
-                  token,
-                  user: {
-                     id: user._id,
-                     firstName: user.firstName,
-                     lastName: user.lastName,
-                     email: user.email,
-                     isAdmin: user.isAdmin,
-                     verified: user.verified,
-                  },
-               });
             });
-         });
       });
    }
 });

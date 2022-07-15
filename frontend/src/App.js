@@ -13,6 +13,7 @@ import CartPage from './screens/CartPage';
 import LoginPage from './screens/LoginPage';
 import RegisterPage from './screens/RegisterPage';
 import EmailVerify from './screens/EmailVerify';
+import ShippingPage from './screens/ShippingPage';
 
 class App extends Component {
    render() {
@@ -29,8 +30,17 @@ class App extends Component {
                      <Route path="/cart" element={<CartPage />} />
                      <Route path="/cart/:id/:qty" element={<CartPage />} />
                      <Route path="/login" element={<LoginPage />} />
+                     <Route path="/login/:redirect" element={<LoginPage />} />
                      <Route path="/register" element={<RegisterPage />} />
-                     <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
+                     <Route
+                        path="/register/:redirect"
+                        element={<RegisterPage />}
+                     />
+                     <Route
+                        path="/users/:id/verify/:token"
+                        element={<EmailVerify />}
+                     />
+                     <Route path="/shipping" element={<ShippingPage />} />
                   </Routes>
                </div>
                <Footer />

@@ -7,6 +7,7 @@ import OurFarm from '../components/OurFarm';
 import SocialMedia from '../components/SocialMedia';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { clearErrors } from '../actions/errorActions';
 
 const Homepage = () => {
    const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const Homepage = () => {
    const { msg } = errorState;
 
    useEffect(() => {
+      dispatch(clearErrors());
       dispatch(getProducts());
    }, [dispatch]);
 

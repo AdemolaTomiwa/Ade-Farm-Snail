@@ -19,6 +19,9 @@ const CartPage = ({ location }) => {
    const cartState = useSelector((state) => state.cart);
    const { cartItems, success } = cartState;
 
+   const loginState = useSelector((state) => state.login);
+   const { user } = loginState;
+
    useEffect(() => {
       if (id) {
          dispatch(addToCart(id, headQty));
@@ -28,6 +31,14 @@ const CartPage = ({ location }) => {
          navigate('/cart');
       }
    }, [dispatch, id, headQty, navigate, success]);
+
+   const checkOutHandler = () => {
+      if (!user) {
+         navigate(`/login/redirect=shipping`);
+      } else {
+         navigate(`/shipping`);
+      }
+   };
 
    return (
       <div className="cartpage">
@@ -72,7 +83,7 @@ const CartPage = ({ location }) => {
                      </div>
                      <div className="button">
                         <button
-                           // onClick={addToCartHandler}
+                           onClick={checkOutHandler}
                            className="btn btn-primary"
                            disabled={cartItems.length === 0}
                         >
