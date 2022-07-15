@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import monoogse from 'mongoose';
 
 const tokenSchema = new mongoose.Schema({
    userId: {

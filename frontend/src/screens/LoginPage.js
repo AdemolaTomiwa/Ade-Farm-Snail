@@ -5,6 +5,7 @@ import { loginUser } from '../actions/userActions';
 import Showcase from '../components/Showcase';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { clearErrors } from '../actions/errorActions';
 
 const LoginPage = () => {
    const params = useParams();
@@ -24,12 +25,13 @@ const LoginPage = () => {
    const { msg } = errorState;
 
    useEffect(() => {
+      dispatch(clearErrors());
       const r = params.redirect ? params.redirect.split('=')[1] : '/';
 
       if (user) {
          navigate(`/${r}`);
       }
-   }, [navigate, user, params]);
+   }, [navigate, user, params, dispatch]);
 
    const togglePassword = () => {
       setshowPassword(!showPassword);
@@ -89,6 +91,9 @@ const LoginPage = () => {
                         {loading ? <Loader /> : 'Log In'}
                      </button>
                   </div>
+                  <Link to="/forgot-password">
+                     <strong>Forgot your Password?</strong>
+                  </Link>
                   <strong>
                      Don't have an account?{' '}
                      <Link

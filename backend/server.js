@@ -3,6 +3,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import productRoute from './routes/productRoute.js';
 import userRoute from './routes/userRoute.js';
+import passwordResetRoute from './routes/passwordReset.js';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ mongoose
 // API Routes
 app.use('/api/products', productRoute);
 app.use('/api/users', userRoute);
+app.use('/api/password-reset', passwordResetRoute);
 
 const PORT = process.env.PORT || 5000;
 

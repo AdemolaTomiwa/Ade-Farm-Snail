@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { clearErrors } from '../actions/errorActions';
 import { registerUser } from '../actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -24,12 +25,13 @@ const RegisterPage = () => {
    const { msg } = errorState;
 
    useEffect(() => {
+      dispatch(clearErrors());
       const r = params.redirect ? params.redirect.split('=')[1] : '/';
 
       if (user) {
          navigate(`/${r}`);
       }
-   }, [navigate, user, params]);
+   }, [navigate, user, params, dispatch]);
 
    const togglePassword = () => {
       setshowPassword(!showPassword);

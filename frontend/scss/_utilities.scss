@@ -349,6 +349,14 @@ form {
          color: $primary-color;
       }
    }
+
+   a {
+      strong {
+         display: block;
+         color: $primary-color;
+         text-align: center;
+      }
+   }
 }
 
 .email-verify {
