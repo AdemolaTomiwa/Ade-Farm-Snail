@@ -1,0 +1,36 @@
+.confirmorderpage {
+   .confirmorder {
+      .content {
+         width: 90%;
+         margin: auto;
+
+         .main {
+            .box {
+               //    background-color: red;
+               border: 2px solid $primary-color;
+               margin: 0.5rem 0;
+               padding: 0.5rem 1rem;
+
+               p {
+                  margin: 1rem 0 0 0;
+               }
+
+               .item-box {
+                  display: flex;
+                  padding: 0.5rem;
+                  align-items: center;
+                  justify-content: space-between;
+                  border-bottom: 1px solid $grey-color;
+
+                  img {
+                     width: 70px;
+                  }
+               }
+            }
+            .item-box:last-child {
+               border-bottom: none;
+            }
+         }
+      }
+   }
+}

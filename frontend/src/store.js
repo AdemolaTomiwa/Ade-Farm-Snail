@@ -9,7 +9,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { errorReducer } from './reducers/errorReducers';
 import { productReducer, productsReducer } from './reducers/productReducers';
 import { cartReducer } from './reducers/cartReducers';
-import { loginReducer, registerReducer } from './reducers/userReducers';
+import {
+   forgotPasswordReducer,
+   loginReducer,
+   registerReducer,
+   resetPasswordReducer,
+} from './reducers/userReducers';
 
 const reducer = combineReducers({
    error: errorReducer,
@@ -18,6 +23,8 @@ const reducer = combineReducers({
    cart: cartReducer,
    register: registerReducer,
    login: loginReducer,
+   forgotPassword: forgotPasswordReducer,
+   resetPassword: resetPasswordReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

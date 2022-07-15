@@ -337,6 +337,30 @@ form {
       }
    }
 
+   .checkbox {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      // background-color: red;
+
+      label {
+         width: inherit;
+         display: inline-block;
+         margin-left: 1rem;
+         cursor: pointer;
+      }
+
+      input {
+         width: inherit;
+         display: inline-block;
+         cursor: pointer;
+      }
+
+      input:focus {
+         outline: none;
+      }
+   }
+
    .password {
       position: relative;
 

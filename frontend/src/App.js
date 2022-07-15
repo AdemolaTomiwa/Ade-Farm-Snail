@@ -16,6 +16,8 @@ import EmailVerify from './screens/EmailVerify';
 import ShippingPage from './screens/ShippingPage';
 import ForgotPasswordPage from './screens/ForgotPasswordPage';
 import PasswordReset from './screens/PasswordReset';
+import PaymentPage from './screens/PaymentPage';
+import ConfirmOrderPage from './screens/ConfirmOrderPage';
 
 class App extends Component {
    render() {
@@ -42,7 +44,6 @@ class App extends Component {
                         path="/users/:id/verify/:token"
                         element={<EmailVerify />}
                      />
-                     <Route path="/shipping" element={<ShippingPage />} />
                      <Route
                         path="/forgot-password"
                         element={<ForgotPasswordPage />}
@@ -50,6 +51,12 @@ class App extends Component {
                      <Route
                         path="/password-reset/:id/:token"
                         element={<PasswordReset />}
+                     />
+                     <Route path="/shipping" element={<ShippingPage />} />
+                     <Route path="/payment" element={<PaymentPage />} />
+                     <Route
+                        path="/confirm-order"
+                        element={<ConfirmOrderPage />}
                      />
                   </Routes>
                </div>

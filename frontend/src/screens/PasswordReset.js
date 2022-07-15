@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { clearErrors } from '../actions/errorActions';
+import { resetPassword } from '../actions/userActions';
 import Message from '../components/Message';
+import Loader from '../components/Loader';
 
 import Showcase from '../components/Showcase';
 import NotFoundPage from '../screens/NotFoundPage';
@@ -16,8 +18,17 @@ const PasswordReset = () => {
 
    const [validUrl, setValidUrl] = useState(true);
    const [password, setPassword] = useState('');
-   const [msg, setMsg] = useState('');
-   const [error, setError] = useState('');
+   const [showPassword, setshowPassword] = useState(false);
+
+   const resetPasswordState = useSelector((state) => state.resetPassword);
+   const { loading, successMsg } = resetPasswordState;
+
+   const errorState = useSelector((state) => state.error);
+   const { msg } = errorState;
+
+   const togglePassword = () => {
+      setshowPassword(!showPassword);
+   };
 
    useEffect(() => {
       dispatch(clearErrors());
@@ -29,8 +40,13 @@ const PasswordReset = () => {
             setValidUrl(false);
          }
       };
+
+      if (successMsg) {
+         dispatch(clearErrors());
+      }
+
       verifyUrl();
-   }, [params, url, dispatch]);
+   }, [params, url, dispatch, successMsg]);
 
    const handleSubmit = async (e) => {
       e.preventDefault();
@@ -39,21 +55,7 @@ const PasswordReset = () => {
          password,
       };
 
-      try {
-         const { data } = await axios.post(url, passwordObj);
-         setMsg(data.msg);
-         setError('');
-         window.location = '/login/redirect=/';
-      } catch (error) {
-         if (
-            error.response &&
-            error.response.status >= 400 &&
-            error.response.status <= 500
-         ) {
-            setError(error.response.data.msg);
-            setMsg('');
-         }
-      }
+      dispatch(resetPassword(url, passwordObj));
    };
 
    return validUrl ? (
@@ -66,22 +68,29 @@ const PasswordReset = () => {
          <div className="passwordreset">
             <div className="content">
                <form onSubmit={handleSubmit}>
-                  <div>
+                  <div className="password">
                      <label htmlFor="password">New Password</label>
                      <input
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         id="email"
                      />
+                     <i
+                        onClick={togglePassword}
+                        className={
+                           showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'
+                        }
+                     ></i>
                   </div>
-                  {error && <Message msg={error} variant="error" box />}
-                  {msg && <Message msg={msg} variant="success" box />}
+                  {msg && <Message msg={msg} variant="error" box />}
+                  {successMsg && (
+                     <Message msg={successMsg} variant="success" box />
+                  )}
 
                   <div>
                      <button className="btn btn-primary">
-                        {/* {loading ? <Loader /> : 'Log In'} */}
-                        Submit
+                        {loading ? <Loader /> : 'Submit'}
                      </button>
                   </div>
                </form>

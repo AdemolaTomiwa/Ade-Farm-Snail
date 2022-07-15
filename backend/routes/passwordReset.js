@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
       await sendEmail(user.email, 'Password Reset', url);
 
       res.status(200).json({
-         msg: 'Password reset link sent to your email account',
+         msg: 'Password reset link sent to your email account!',
       });
    } catch (error) {
       res.status(400).json({ msg: 'An error occured!' });
@@ -68,6 +68,11 @@ router.post('/:id/:token', async (req, res) => {
 
       if (!password)
          return res.status(400).json({ msg: 'Please enter password!' });
+
+      if (password.length < 6)
+         return res.status(400).json({
+            msg: 'Password character should be at least 6 character long!',
+         });
 
       const passwordObj = new Password({
          password,
