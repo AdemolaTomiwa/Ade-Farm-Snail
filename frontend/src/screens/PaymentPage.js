@@ -7,7 +7,7 @@ import { savePaymentMethod } from '../actions/cartActions';
 const PaymentPage = () => {
    const dispatch = useDispatch();
    const navigate = useNavigate();
-   const [payment, setPayment] = useState('paypal');
+   const [payment, setPayment] = useState('Cash');
 
    const handleSubmit = (e) => {
       e.preventDefault();
@@ -29,22 +29,12 @@ const PaymentPage = () => {
                   <div className="checkbox">
                      <input
                         type="radio"
-                        id="paypal"
+                        id="Cash"
                         value={payment}
                         name="payment"
                         onChange={(e) => setPayment(e.target.id)}
                      />
-                     <label htmlFor="paypal">PayPal or Credit Card</label>
-                  </div>
-                  <div className="checkbox">
-                     <input
-                        type="radio"
-                        id="cash"
-                        value={payment}
-                        name="payment"
-                        onChange={(e) => setPayment(e.target.id)}
-                     />
-                     <label htmlFor="cash">Cash on Delivery</label>
+                     <label htmlFor="Cash">Cash on Delivery</label>
                   </div>
                   <div>
                      <button className="btn btn-primary">

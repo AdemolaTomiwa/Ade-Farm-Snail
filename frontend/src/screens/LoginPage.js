@@ -13,8 +13,6 @@ const LoginPage = () => {
    const dispatch = useDispatch();
 
    const [showPassword, setshowPassword] = useState(false);
-   // const [firstName, setFirstName] = useState('')
-   // const [lastName, setLastName] = useState('')
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
 
@@ -96,15 +94,7 @@ const LoginPage = () => {
                   </Link>
                   <strong>
                      Don't have an account?{' '}
-                     <Link
-                        to={
-                           params.redirect
-                              ? '/register/redirect=shipping'
-                              : '/register/redirect=/'
-                        }
-                     >
-                        Regiser Now
-                     </Link>
+                     <Link to={'/register/redirect=/'}>Regiser Now</Link>
                   </strong>
                </form>
             </div>

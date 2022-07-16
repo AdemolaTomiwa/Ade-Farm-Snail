@@ -18,6 +18,11 @@ import ForgotPasswordPage from './screens/ForgotPasswordPage';
 import PasswordReset from './screens/PasswordReset';
 import PaymentPage from './screens/PaymentPage';
 import ConfirmOrderPage from './screens/ConfirmOrderPage';
+import OrderPage from './screens/OrderPage';
+import MyAccountPage from './screens/MyAccountPage';
+import MyOrdersPage from './screens/MyOrdersPage';
+import ProductsPage from './screens/ProductsPage';
+import AdminPage from './screens/AdminPage';
 
 class App extends Component {
    render() {
@@ -31,6 +36,7 @@ class App extends Component {
                      <Route path="/about" element={<AboutPage />} />
                      <Route path="/contact" element={<ContactPage />} />
                      <Route path="/product/:id" element={<ProductPage />} />
+                     <Route path="/products" element={<ProductsPage />} />
                      <Route path="/cart" element={<CartPage />} />
                      <Route path="/cart/:id/:qty" element={<CartPage />} />
                      <Route path="/login" element={<LoginPage />} />
@@ -58,6 +64,11 @@ class App extends Component {
                         path="/confirm-order"
                         element={<ConfirmOrderPage />}
                      />
+                     <Route path="/order/:id" element={<OrderPage />} />
+                     <Route path="/my-account" element={<MyAccountPage />} />
+                     <Route path="/my-orders" element={<MyOrdersPage />} />
+
+                     <Route path="/admin" element={<AdminPage />} />
                   </Routes>
                </div>
                <Footer />

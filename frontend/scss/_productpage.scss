@@ -47,7 +47,8 @@
 .sq-box {
    border: 2px solid $primary-color;
 
-   div {
+   div,
+   a {
       display: flex;
       align-items: center;
       justify-content: space-between;

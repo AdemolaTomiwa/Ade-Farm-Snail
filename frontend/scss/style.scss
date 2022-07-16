@@ -11,6 +11,10 @@
 @import 'shippingpage';
 @import 'paymentpage';
 @import 'confirmorderpage';
+@import 'orderpage';
+@import 'myaccountpage';
+@import 'myorderspage';
+@import 'productspage';
 
 * {
    margin: 0;
@@ -73,6 +77,10 @@ header {
             background-color: $white-color;
             color: $primary-color;
             padding: 0.5rem 1rem;
+
+            i {
+               margin-right: 0.5rem;
+            }
 
             &:hover {
                color: $white-color;

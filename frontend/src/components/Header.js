@@ -1,8 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Logo from '../img/logo.png';
 
 const Header = () => {
+   const loginState = useSelector((state) => state.login);
+   const { user } = loginState;
+
    return (
       <header>
          <div className="header">
@@ -19,9 +23,17 @@ const Header = () => {
                <Link to="/products">Our Products</Link>
                <Link to="/contact">Contact Us</Link>
                <Link to="/cart">Cart</Link>
-               <Link className="account" to="/login/redirect=/">
-                  Account
-               </Link>
+               {user.isAdmin && <Link to="/admin">Admin Portal</Link>}
+               {user ? (
+                  <Link className="account" to="/my-account">
+                     <i className="fas fa-user"></i>
+                     Hi, {user.firstName}
+                  </Link>
+               ) : (
+                  <Link className="account" to="/login/redirect=/">
+                     Account
+                  </Link>
+               )}
             </div>
          </div>
       </header>

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Typical from 'react-typical';
-import { getProducts } from '../actions/productActions';
+import { getRecentProducts } from '../actions/productActions';
 import OurFarm from '../components/OurFarm';
 import SocialMedia from '../components/SocialMedia';
 import Loader from '../components/Loader';
@@ -11,17 +11,22 @@ import { clearErrors } from '../actions/errorActions';
 
 const Homepage = () => {
    const dispatch = useDispatch();
+   const navigate = useNavigate();
 
-   const productState = useSelector((state) => state.products);
-   const { loading, products } = productState;
+   const recentProductState = useSelector((state) => state.recentProducts);
+   const { loading, products } = recentProductState;
 
    const errorState = useSelector((state) => state.error);
    const { msg } = errorState;
 
    useEffect(() => {
       dispatch(clearErrors());
-      dispatch(getProducts());
+      dispatch(getRecentProducts());
    }, [dispatch]);
+
+   const addToCartHandler = (id) => {
+      navigate(`/cart/${id}/qty=1`);
+   };
 
    return (
       <div className="homepage">
@@ -64,21 +69,25 @@ const Homepage = () => {
          <div className="products">
             {products &&
                products.map((product) => (
-                  <Link key={product._id} to={`/product/${product._id}`}>
-                     <div className="product">
-                        <div className="img">
-                           <img src={product.image} alt={product.name} />
-                        </div>
-                        <div className="content">
-                           <h3>{product.name}</h3>
-                           <h4># {product.price}</h4>
-                           <p>{product.description}</p>
-                           <button className="btn btn-primary">
-                              Add to Cart
-                           </button>
-                        </div>
+                  <div key={product._id} className="product">
+                     <div className="img">
+                        <img src={product.image} alt={product.name} />
                      </div>
-                  </Link>
+                     <div className="content">
+                        <Link to={`/product/${product._id}`}>
+                           {' '}
+                           <h3>{product.name}</h3>{' '}
+                        </Link>
+                        <h4># {product.price}</h4>
+                        <p>{product.description}</p>
+                        <button
+                           onClick={() => addToCartHandler(product._id)}
+                           className="btn btn-primary"
+                        >
+                           Add to Cart
+                        </button>
+                     </div>
+                  </div>
                ))}
          </div>
 

@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 
+import { auth } from '../middleware/auth.js';
 import Token from '../models/tokenModel.js';
 import sendEmail from '../middleware/sendEmail.js';
 
@@ -179,4 +180,88 @@ router.get('/:id/verify/:token', async (req, res) => {
       return;
    }
 });
+
+router.put('/', auth, (req, res) => {
+   const {
+      firstName,
+      lastName,
+      newPassword,
+      confirmPassword,
+      currentPassword,
+   } = req.body;
+
+   User.findById(req.user.id)
+      .then((user) => {
+         if (user) {
+            user.firstName = firstName || user.firstName;
+            user.lastName = lastName || user.lastName;
+
+            if (currentPassword) {
+               if (newPassword !== confirmPassword) {
+                  res.status(409).json({
+                     msg: 'New Password does not match the Retyped Password!',
+                  });
+               } else if (newPassword.length < 6) {
+                  res.status(400).json({
+                     msg: 'New password character should be at least 6 character long!',
+                  });
+               } else {
+                  bcrypt
+                     .compare(currentPassword, user.password)
+                     .then((isMatch) => {
+                        if (!isMatch) {
+                           return res
+                              .status(409)
+                              .json({ msg: 'Invalid Current Password!' });
+                        }
+
+                        user.password = newPassword;
+
+                        bcrypt.genSalt(10, (err, salt) => {
+                           bcrypt.hash(user.password, salt, (err, hash) => {
+                              if (err) throw err;
+
+                              user.password = hash;
+
+                              user
+                                 .save()
+                                 .then((user) => {
+                                    jwt.sign(
+                                       { id: user._id },
+                                       process.env.JWT_SECRET,
+                                       (err, token) => {
+                                          if (err) throw err;
+
+                                          res.json({
+                                             token,
+                                             user: {
+                                                id: user._id,
+                                                firstName: user.firstName,
+                                                lastName: user.lastName,
+                                                email: user.email,
+                                             },
+                                          });
+                                       }
+                                    );
+                                 })
+                                 .catch((err) => {
+                                    if (err) throw err;
+                                 });
+                           });
+                        });
+                     })
+                     .catch((err) => {
+                        if (err) throw err;
+                     });
+               }
+            }
+         }
+      })
+      .catch(() =>
+         res.status(404).json({
+            msg: 'User does not exist! An error occured!',
+         })
+      );
+});
+
 export default router;

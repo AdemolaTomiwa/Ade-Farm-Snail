@@ -6,8 +6,28 @@ import {
    PRODUCT_LIST_FAIL,
    PRODUCT_LIST_REQUEST,
    PRODUCT_LIST_SUCCESS,
+   RECENT_PRODUCT_FAIL,
+   RECENT_PRODUCT_REQUEST,
+   RECENT_PRODUCT_SUCCESS,
 } from '../constants/productConstants';
 import { returnErrors } from './errorActions';
+
+export const getRecentProducts = () => (dispatch) => {
+   dispatch({ type: RECENT_PRODUCT_REQUEST });
+
+   axios
+      .get('/api/products/recent/products')
+      .then((res) =>
+         dispatch({
+            type: RECENT_PRODUCT_SUCCESS,
+            payload: res.data,
+         })
+      )
+      .catch((err) => {
+         dispatch(returnErrors(err.response.data.msg));
+         dispatch({ type: RECENT_PRODUCT_FAIL });
+      });
+};
 
 export const getProducts = () => (dispatch) => {
    dispatch({ type: PRODUCT_LIST_REQUEST });

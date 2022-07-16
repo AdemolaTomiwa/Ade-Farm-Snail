@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const OurFarm = () => {
    return (
@@ -13,9 +12,6 @@ const OurFarm = () => {
                snail farming and are able to supply quality and healthy snails
                to organizations and homes within and outside Nigeria.
             </p>
-            <Link to="/farm">
-               <button className="btn btn-white">Read More</button>
-            </Link>
          </div>
       </div>
    );

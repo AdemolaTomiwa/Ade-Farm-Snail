@@ -5,7 +5,23 @@ import {
    PRODUCT_LIST_FAIL,
    PRODUCT_LIST_REQUEST,
    PRODUCT_LIST_SUCCESS,
+   RECENT_PRODUCT_FAIL,
+   RECENT_PRODUCT_REQUEST,
+   RECENT_PRODUCT_SUCCESS,
 } from '../constants/productConstants';
+
+export const recentProductsReducer = (state = { products: [] }, action) => {
+   switch (action.type) {
+      case RECENT_PRODUCT_REQUEST:
+         return { loading: true };
+      case RECENT_PRODUCT_SUCCESS:
+         return { loading: false, products: action.payload };
+      case RECENT_PRODUCT_FAIL:
+         return { loading: false };
+      default:
+         return state;
+   }
+};
 
 export const productsReducer = (state = { products: [] }, action) => {
    switch (action.type) {

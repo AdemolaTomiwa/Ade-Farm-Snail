@@ -1,11 +1,32 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { createOrder } from '../actions/orderActions';
 import Message from '../components/Message';
 import Showcase from '../components/Showcase';
+import Loader from '../components/Loader';
 
 const ConfirmOrderPage = () => {
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
+
+   const loginState = useSelector((state) => state.login);
+   const { user } = loginState;
+
    const cartState = useSelector((state) => state.cart);
    const { cartItems, shippingAddress, paymentMethod } = cartState;
+
+   const orderState = useSelector((state) => state.singleOrder);
+   const { loading, order } = orderState;
+
+   const errorState = useSelector((state) => state.error);
+   const { msg } = errorState;
+
+   useEffect(() => {
+      if (order) {
+         navigate(`/order/${order._id}`);
+      }
+   }, [order, navigate]);
 
    const toPrice = (num) => Number(num.toFixed(2));
    const itemPrice = toPrice(
@@ -15,6 +36,21 @@ const ConfirmOrderPage = () => {
    const shippingPrice = toPrice(itemPrice < 1000 ? toPrice(0) : toPrice(10));
 
    const totalPrice = toPrice(itemPrice + shippingPrice);
+
+   const placeOrderHandler = () => {
+      const order = {
+         orderItems: cartItems,
+         shippingAddress,
+         paymentMethod,
+         itemPrice,
+         shippingPrice,
+         totalPrice,
+         user: user.id,
+         userObj: user,
+      };
+
+      dispatch(createOrder(order));
+   };
 
    return (
       <div className="confirmorderpage">
@@ -80,16 +116,19 @@ const ConfirmOrderPage = () => {
                         <p>Total Price:</p>
                         <span># {totalPrice}</span>
                      </div>
+
                      <div className="button">
                         <button
-                           //    onClick={checkOutHandler}
+                           onClick={placeOrderHandler}
                            className="btn btn-primary"
-                           //    disabled={cartItems.length === 0}
+                           disabled={cartItems.length === 0}
                         >
-                           Place Order
+                           {loading ? <Loader /> : ' Place Order'}
                         </button>
                      </div>
                   </div>
+
+                  {msg && <Message msg={msg} variant="error" box />}
                </div>
             </div>
          </div>

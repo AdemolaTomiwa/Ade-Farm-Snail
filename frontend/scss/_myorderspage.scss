@@ -1,0 +1,44 @@
+.myorderspage {
+   .myorders {
+      .content {
+         width: 90%;
+         margin: auto;
+
+         .main {
+            padding: 1rem;
+            margin: 1rem 0 3rem 0;
+            // border: 2px solid $primary-color;
+
+            h3 {
+               margin-bottom: 1rem;
+            }
+
+            a {
+               .item-box {
+                  display: flex;
+                  padding: 0.5rem;
+                  align-items: center;
+                  justify-content: space-between;
+                  text-align: left;
+                  border-bottom: 1px solid $primary-color;
+                  @include easeOut();
+
+                  &:hover {
+                     background-color: darken($white-color, 3%);
+                  }
+
+                  img {
+                     width: 70px;
+                  }
+               }
+            }
+         }
+
+         div {
+            .btn {
+               width: 100%;
+            }
+         }
+      }
+   }
+}

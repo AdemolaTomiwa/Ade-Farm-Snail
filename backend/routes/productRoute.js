@@ -15,6 +15,17 @@ router.get('/', (req, res) => {
       .catch((err) => res.status(400).json({ msg: 'An error occured!!!' }));
 });
 
+// Get recent products
+// GET @/api/products/recent/products
+// Public
+router.get('/recent/products', (req, res) => {
+   Product.find()
+      .sort({ createdAt: -1 })
+      .limit(3)
+      .then((product) => res.status(200).json(product))
+      .catch((err) => res.status(400).json({ msg: 'An error occured!!!' }));
+});
+
 // Get a single products
 // GET @/api/products/:id
 // Public
