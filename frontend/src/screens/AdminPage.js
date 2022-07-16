@@ -42,7 +42,13 @@ const AdminPage = () => {
          <div className="admin">
             <div className="content">
                <div className="box">
-                  <h3>Users</h3>
+                  <div className="head">
+                     <h3>Users</h3>
+
+                     <div>
+                        <i className="fas fa-plus"></i> Create new User{' '}
+                     </div>
+                  </div>
 
                   {loading && <Loader />}
 
@@ -94,7 +100,12 @@ const AdminPage = () => {
 
                {/* Products */}
                <div className="box">
-                  <h3>Products</h3>
+                  <div className="head">
+                     <h3>Products</h3>
+                     <div>
+                        <i className="fas fa-plus"></i> Create new Product
+                     </div>
+                  </div>
 
                   {loadingProducts && <Loader />}
 
@@ -144,7 +155,9 @@ const AdminPage = () => {
 
                {/* orders */}
                <div className="box">
-                  <h3>Order</h3>
+                  <div className="head">
+                     <h3>Order</h3>
+                  </div>
 
                   {loadingOrder && <Loader />}
 
