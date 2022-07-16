@@ -21,6 +21,32 @@ router.get('/', (req, res) => {
       .catch(() => res.status(400).json({ msg: 'An error occured!' }));
 });
 
+// Get recent Users
+// GET @/api/users/recent/users
+// Private
+router.get('/recent/users', (req, res) => {
+   User.find()
+      .sort({ createdAt: -1 })
+      .limit(3)
+      .then((user) => res.status(200).json(user))
+      .catch(() => res.status(400).json({ msg: 'An error occured!' }));
+});
+
+// Get a single User
+// GET @/api/users/:id
+// Private
+router.get('/:id', auth, (req, res) => {
+   User.findById(req.params.id)
+      .then((user) => {
+         if (user) {
+            res.status(200).json(user);
+         } else {
+            res.status(404).json({ msg: 'User does not exist!!!' });
+         }
+      })
+      .catch((err) => res.status(400).json({ msg: 'An error occured!!!' }));
+});
+
 // Create a new User
 // POST @/api/users
 // Public
@@ -255,6 +281,26 @@ router.put('/', auth, (req, res) => {
                      });
                }
             }
+         }
+      })
+      .catch(() =>
+         res.status(404).json({
+            msg: 'User does not exist! An error occured!',
+         })
+      );
+});
+
+router.put('/admin/update', auth, (req, res) => {
+   const { firstName, lastName, isAdmin, id } = req.body;
+
+   User.findById(id)
+      .then((user) => {
+         if (user) {
+            user.firstName = firstName || user.firstName;
+            user.lastName = lastName || user.lastName;
+            user.isAdmin = isAdmin;
+
+            user.save().then(res.status(201).json(user));
          }
       })
       .catch(() =>

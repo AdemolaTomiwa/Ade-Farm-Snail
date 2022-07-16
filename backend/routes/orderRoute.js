@@ -15,6 +15,17 @@ router.get('/', auth, (req, res) => {
       .catch(() => res.status(400).json({ msg: 'An error occured!' }));
 });
 
+// Get recent Orders
+// GET @/api/orders/recent/orders
+// Private
+router.get('/recent/orders', auth, (req, res) => {
+   Order.find()
+      .sort({ createdAt: -1 })
+      .limit(3)
+      .then((order) => res.status(200).json(order))
+      .catch(() => res.status(400).json({ msg: 'An error occured!' }));
+});
+
 // Get a single Order
 // GET @/api/orders/:id
 // Private
@@ -85,7 +96,17 @@ router.get('/myorders/mine', auth, (req, res) => {
 router.get('/myorders/mine/recent', auth, (req, res) => {
    Order.find({ user: req.user.id })
       .sort({ createdAt: -1 })
-      .limit(2)
+      .limit(3)
+      .then((order) => res.status(200).json(order))
+      .catch(() => res.status(400).json({ msg: 'An error occured!' }));
+});
+
+// Get all user id orders
+// GET @/api/orders/myorders/mine/recent/:id
+// Private
+router.get('/user/orders/:id', auth, (req, res) => {
+   Order.find({ user: req.params.id })
+      .sort({ createdAt: -1 })
       .then((order) => res.status(200).json(order))
       .catch(() => res.status(400).json({ msg: 'An error occured!' }));
 });

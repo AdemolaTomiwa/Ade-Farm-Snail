@@ -1,8 +1,21 @@
 import axios from 'axios';
 import {
+   ADMIN_USER_UPDATE_FAIL,
+   ADMIN_USER_UPDATE_REQUEST,
+   ADMIN_USER_UPDATE_RESET,
+   ADMIN_USER_UPDATE_SUCCESS,
    GET_USER_RESET_PASSWORD_FAIL,
    GET_USER_RESET_PASSWORD_REQUEST,
    GET_USER_RESET_PASSWORD_SUCCESS,
+   RECENT_USER_LIST_FAIL,
+   RECENT_USER_LIST_REQUEST,
+   RECENT_USER_LIST_SUCCESS,
+   USER_DETAILS_FAIL,
+   USER_DETAILS_REQUEST,
+   USER_DETAILS_SUCCESS,
+   USER_LIST_FAIL,
+   USER_LIST_REQUEST,
+   USER_LIST_SUCCESS,
    USER_LOGIN_FAIL,
    USER_LOGIN_REQUEST,
    USER_LOGIN_SUCCESS,
@@ -19,6 +32,57 @@ import {
    USER_UPDATE_SUCCESS,
 } from '../constants/userConstants';
 import { returnErrors } from './errorActions';
+
+export const getUsers = () => (dispatch, getState) => {
+   dispatch({ type: USER_LIST_REQUEST });
+
+   axios
+      .get('/api/users', tokenConfig(getState))
+      .then((res) => {
+         dispatch({
+            type: USER_LIST_SUCCESS,
+            payload: res.data,
+         });
+      })
+      .catch((err) => {
+         dispatch(returnErrors(err.response.data.msg));
+         dispatch({ type: USER_LIST_FAIL });
+      });
+};
+
+export const getRecentUsers = () => (dispatch, getState) => {
+   dispatch({ type: RECENT_USER_LIST_REQUEST });
+
+   axios
+      .get('/api/users/recent/users', tokenConfig(getState))
+      .then((res) => {
+         dispatch({
+            type: RECENT_USER_LIST_SUCCESS,
+            payload: res.data,
+         });
+      })
+      .catch((err) => {
+         dispatch(returnErrors(err.response.data.msg));
+         dispatch({ type: RECENT_USER_LIST_FAIL });
+      });
+};
+
+export const getUser = (id) => (dispatch, getState) => {
+   dispatch({ type: USER_DETAILS_REQUEST });
+
+   axios
+      .get(`/api/users/${id}`, tokenConfig(getState))
+      .then((res) =>
+         dispatch({
+            type: USER_DETAILS_SUCCESS,
+            payload: res.data,
+         })
+      )
+      .catch((err) => {
+         dispatch(returnErrors(err.response.data.msg));
+         dispatch({ type: USER_DETAILS_FAIL });
+      });
+};
 
 export const loginUser = (user) => (dispatch) => {
    dispatch({ type: USER_LOGIN_REQUEST });
@@ -158,6 +222,25 @@ export const updateUser = (user) => (dispatch, getState) => {
       .catch((err) => {
          dispatch(returnErrors(err.response.data.msg));
          dispatch({ type: USER_UPDATE_FAIL });
+      });
+};
+
+export const adminUpdateUser = (user) => (dispatch, getState) => {
+   dispatch({ type: ADMIN_USER_UPDATE_REQUEST });
+
+   axios
+      .put('/api/users/admin/update', user, tokenConfig(getState))
+      .then((res) => {
+         dispatch({
+            type: ADMIN_USER_UPDATE_SUCCESS,
+            payload: res.data,
+         });
+
+         dispatch({ type: ADMIN_USER_UPDATE_RESET });
+      })
+      .catch((err) => {
+         dispatch(returnErrors(err.response.data.msg));
+         dispatch({ type: ADMIN_USER_UPDATE_FAIL });
       });
 };
 

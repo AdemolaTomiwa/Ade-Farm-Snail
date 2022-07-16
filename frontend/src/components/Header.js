@@ -23,7 +23,7 @@ const Header = () => {
                <Link to="/products">Our Products</Link>
                <Link to="/contact">Contact Us</Link>
                <Link to="/cart">Cart</Link>
-               {user.isAdmin && <Link to="/admin">Admin Portal</Link>}
+               {user && user.isAdmin && <Link to="/admin">Admin Portal</Link>}
                {user ? (
                   <Link className="account" to="/my-account">
                      <i className="fas fa-user"></i>
