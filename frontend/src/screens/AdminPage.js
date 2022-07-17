@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
@@ -9,9 +9,14 @@ import Message from '../components/Message';
 import Showcase from '../components/Showcase';
 import { getRecentProducts } from '../actions/productActions';
 import { clearErrors } from '../actions/errorActions';
+import AdminCreateProductModal from '../components/AdminCreateProductModal';
+import AdminCreateUserModal from '../components/AdminCreateUserModal';
 
 const AdminPage = () => {
    const dispatch = useDispatch();
+
+   const [openProductModal, setOpenProductModal] = useState(false);
+   const [openUserModal, setOpenUserModal] = useState(false);
 
    const recentUsers = useSelector((state) => state.recentUserList);
    const { loading, users } = recentUsers;
@@ -45,7 +50,7 @@ const AdminPage = () => {
                   <div className="head">
                      <h3>Users</h3>
 
-                     <div>
+                     <div onClick={() => setOpenUserModal(true)}>
                         <i className="fas fa-plus"></i> Create new User{' '}
                      </div>
                   </div>
@@ -98,11 +103,17 @@ const AdminPage = () => {
                   </Link>
                </div>
 
+               {openUserModal && (
+                  <AdminCreateUserModal
+                     closeModal={() => setOpenUserModal(false)}
+                  />
+               )}
+
                {/* Products */}
                <div className="box">
                   <div className="head">
                      <h3>Products</h3>
-                     <div>
+                     <div onClick={() => setOpenProductModal(true)}>
                         <i className="fas fa-plus"></i> Create new Product
                      </div>
                   </div>
@@ -152,6 +163,12 @@ const AdminPage = () => {
                      </button>
                   </Link>
                </div>
+
+               {openProductModal && (
+                  <AdminCreateProductModal
+                     closeModal={() => setOpenProductModal(false)}
+                  />
+               )}
 
                {/* orders */}
                <div className="box">

@@ -1,4 +1,8 @@
 import {
+   ADMIN_USER_CREATE_FAIL,
+   ADMIN_USER_CREATE_REQUEST,
+   ADMIN_USER_CREATE_RESET,
+   ADMIN_USER_CREATE_SUCCESS,
    ADMIN_USER_UPDATE_FAIL,
    ADMIN_USER_UPDATE_REQUEST,
    ADMIN_USER_UPDATE_RESET,
@@ -65,6 +69,24 @@ export const registerReducer = (state = {}, action) => {
       case USER_REGISTER_FAIL:
          return { loading: false };
       case USER_LOGOUT:
+         return {};
+      default:
+         return state;
+   }
+};
+
+export const adminCreateUserReducer = (state = {}, action) => {
+   switch (action.type) {
+      case ADMIN_USER_CREATE_REQUEST:
+         return { loading: true };
+      case ADMIN_USER_CREATE_SUCCESS:
+         return {
+            loading: false,
+            success: true,
+         };
+      case ADMIN_USER_CREATE_FAIL:
+         return { loading: false };
+      case ADMIN_USER_CREATE_RESET:
          return {};
       default:
          return state;

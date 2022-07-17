@@ -1,14 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Showcase from '../components/Showcase';
 import { getUsers } from '../actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import AdminCreateUserModal from '../components/AdminCreateUserModal';
+import { clearErrors } from '../actions/errorActions';
 
 const AdminUserListPage = () => {
    const dispatch = useDispatch();
    const navigate = useNavigate();
+
+   const [openUserModal, setOpenUserModal] = useState(false);
 
    const loginState = useSelector((state) => state.login);
    const { user } = loginState;
@@ -37,7 +41,13 @@ const AdminUserListPage = () => {
          <div className="adminuserlist">
             <div className="content">
                <div className="main">
-                  <h3>All Users</h3>
+                  <div className="head">
+                     <h3>All Users</h3>
+
+                     <div onClick={() => setOpenUserModal(true)}>
+                        <i className="fas fa-plus"></i> Create new User{' '}
+                     </div>
+                  </div>
 
                   {loading && <Loader />}
 
@@ -80,6 +90,15 @@ const AdminUserListPage = () => {
                         </Link>
                      ))}
                </div>
+
+               {openUserModal && (
+                  <AdminCreateUserModal
+                     closeModal={() => {
+                        setOpenUserModal(false);
+                        dispatch(clearErrors());
+                     }}
+                  />
+               )}
             </div>
          </div>
       </div>

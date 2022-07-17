@@ -347,6 +347,19 @@ form {
          background-color: transparent;
          color: $black-color;
       }
+
+      textarea {
+         margin: 0.5rem 0;
+         width: 100%;
+         padding: 0.7rem 1rem;
+         outline: none;
+         border: 2px solid $primary-color;
+         font-family: 'Montserrat', sans-serif;
+         font-weight: bold;
+         border-radius: 5px;
+         background-color: transparent;
+         color: $black-color;
+      }
    }
 
    .checkbox {
@@ -419,6 +432,7 @@ form {
    width: 100%;
    margin: auto;
    z-index: 2;
+   overflow: scroll;
 
    .modal-content {
       background-color: darken($primary-color, 10%);
@@ -430,6 +444,19 @@ form {
          div {
             input {
                border: 2px solid $white-color;
+               color: $white-color;
+            }
+
+            textarea {
+               margin: 0.5rem 0;
+               width: 100%;
+               padding: 0.7rem 1rem;
+               outline: none;
+               border: 2px solid $white-color;
+               font-family: 'Montserrat', sans-serif;
+               font-weight: bold;
+               border-radius: 5px;
+               background-color: transparent;
                color: $white-color;
             }
          }
@@ -471,6 +498,49 @@ form {
       margin: 0.1rem;
       i {
          color: $yellow-color;
+      }
+   }
+}
+
+.upload-modal {
+   border: 2px dotted $white-color;
+   height: 4rem;
+   color: $white-color;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   margin-bottom: 0.5rem;
+   border-radius: 5px;
+}
+
+.modal-active {
+   background-color: $grey-color;
+   height: 4rem;
+   color: $black-color;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   margin-bottom: 0.5rem;
+   border-radius: 5px;
+}
+
+.preview-file {
+   div {
+      // background-color: $black-color;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      // border: 2px solid $white-color;
+
+      img {
+         width: 100px;
+         object-fit: cover;
+         height: 100px;
+         margin-right: 1rem;
+         border-radius: 100%;
       }
    }
 }

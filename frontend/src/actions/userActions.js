@@ -1,5 +1,9 @@
 import axios from 'axios';
 import {
+   ADMIN_USER_CREATE_FAIL,
+   ADMIN_USER_CREATE_REQUEST,
+   ADMIN_USER_CREATE_RESET,
+   ADMIN_USER_CREATE_SUCCESS,
    ADMIN_USER_UPDATE_FAIL,
    ADMIN_USER_UPDATE_REQUEST,
    ADMIN_USER_UPDATE_RESET,
@@ -143,6 +147,31 @@ export const registerUser = (user) => (dispatch) => {
       .catch((err) => {
          dispatch(returnErrors(err.response.data.msg));
          dispatch({ type: USER_REGISTER_FAIL });
+      });
+};
+
+export const adminCreateUser = (user) => (dispatch) => {
+   dispatch({ type: ADMIN_USER_CREATE_REQUEST });
+
+   const config = {
+      headers: {
+         'Content-type': 'application/json',
+      },
+   };
+
+   axios
+      .post('/api/users', user, config)
+      .then((res) => {
+         dispatch({
+            type: ADMIN_USER_CREATE_SUCCESS,
+            payload: res.data,
+         });
+
+         dispatch({ type: ADMIN_USER_CREATE_RESET });
+      })
+      .catch((err) => {
+         dispatch(returnErrors(err.response.data.msg));
+         dispatch({ type: ADMIN_USER_CREATE_FAIL });
       });
 };
 

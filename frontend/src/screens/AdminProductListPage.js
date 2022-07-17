@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Moment from 'react-moment';
@@ -6,10 +6,14 @@ import Showcase from '../components/Showcase';
 import { getProducts } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import AdminCreateProductModal from '../components/AdminCreateProductModal';
+import { clearErrors } from '../actions/errorActions';
 
 const AdminProductListPage = () => {
    const dispatch = useDispatch();
    const navigate = useNavigate();
+
+   const [openProductModal, setOpenProductModal] = useState(false);
 
    const loginState = useSelector((state) => state.login);
    const { user } = loginState;
@@ -38,7 +42,13 @@ const AdminProductListPage = () => {
          <div className="adminproductlist">
             <div className="content">
                <div className="main">
-                  <h3>All Products</h3>
+                  <div className="head">
+                     <h3>All Products</h3>
+
+                     <div onClick={() => setOpenProductModal(true)}>
+                        <i className="fas fa-plus"></i> Create new Product{' '}
+                     </div>
+                  </div>
 
                   {loading && <Loader />}
 
@@ -76,6 +86,15 @@ const AdminProductListPage = () => {
                         </Link>
                      ))}
                </div>
+
+               {openProductModal && (
+                  <AdminCreateProductModal
+                     closeModal={() => {
+                        setOpenProductModal(false);
+                        dispatch(clearErrors());
+                     }}
+                  />
+               )}
             </div>
          </div>
       </div>

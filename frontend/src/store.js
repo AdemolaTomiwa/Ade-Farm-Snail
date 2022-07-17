@@ -8,12 +8,14 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { errorReducer } from './reducers/errorReducers';
 import {
+   createProductReducer,
    productReducer,
    productsReducer,
    recentProductsReducer,
 } from './reducers/productReducers';
 import { cartReducer } from './reducers/cartReducers';
 import {
+   adminCreateUserReducer,
    adminUserUpdateReducer,
    forgotPasswordReducer,
    loginReducer,
@@ -56,6 +58,8 @@ const reducer = combineReducers({
    recentOrderList: recentOrderListReducer,
    userOrder: getUserOrdersReducer,
    adminUpdateUser: adminUserUpdateReducer,
+   createProduct: createProductReducer,
+   createUser: adminCreateUserReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
