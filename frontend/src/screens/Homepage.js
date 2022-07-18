@@ -75,14 +75,16 @@ const Homepage = () => {
             {products &&
                products.map((product) => (
                   <div key={product._id} className="product">
-                     <div className="img">
-                        <Image
-                           cloudName="the-tom-media"
-                           publicId={product.imagePublicId}
-                        >
-                           <Transformation />
-                        </Image>
-                     </div>
+                     <Link to={`/product/${product._id}`}>
+                        <div className="img">
+                           <Image
+                              cloudName="the-tom-media"
+                              publicId={product.imagePublicId}
+                           >
+                              <Transformation />
+                           </Image>
+                        </div>
+                     </Link>
                      <div className="content">
                         <Link to={`/product/${product._id}`}>
                            {' '}

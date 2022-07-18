@@ -6,7 +6,6 @@
 
          .main {
             .box {
-               //    background-color: red;
                border: 2px solid $primary-color;
                margin: 0.5rem 0;
                padding: 0.5rem 1rem;
@@ -24,6 +23,8 @@
 
                   img {
                      width: 70px;
+                     height: 50px;
+                     object-fit: cover;
                   }
                }
             }

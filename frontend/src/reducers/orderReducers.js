@@ -38,6 +38,7 @@ export const createOrderReducer = (state = {}, action) => {
       case ORDER_CREATE_FAIL:
          return { loading: false };
       case ORDER_CREATE_RESET:
+         return {};
       default:
          return state;
    }

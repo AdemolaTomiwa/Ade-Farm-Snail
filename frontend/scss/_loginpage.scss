@@ -17,6 +17,10 @@
 
             a {
                color: $primary-color;
+
+               strong {
+                  margin-bottom: 1rem;
+               }
             }
          }
       }
