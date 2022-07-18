@@ -95,6 +95,14 @@ header {
    }
 }
 
+.notfoundpage {
+   a {
+      display: block;
+      width: 80%;
+      margin: auto;
+   }
+}
+
 footer {
    background-color: darken($primary-color, 10%);
    padding: 1rem 0;

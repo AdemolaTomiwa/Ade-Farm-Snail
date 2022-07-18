@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { saveShippingAddress } from '../actions/cartActions';
 import { clearErrors } from '../actions/errorActions';
 import Message from '../components/Message';
+import Meta from '../components/Meta';
 import Showcase from '../components/Showcase';
 
 const ShippingPage = () => {
@@ -50,8 +51,9 @@ const ShippingPage = () => {
 
    return (
       <div className="shippingpage">
+         <Meta title="Ade Farm Snails | Shipping" />
          <Showcase
-            img="https://ocdn.eu/pulscms-transforms/1/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg"
+            img="https://res.cloudinary.com/the-tom-media/image/upload/v1658160593/adefarmsnails/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg_byvqvr.jpg"
             title="Shipping"
          />
 
@@ -103,8 +105,6 @@ const ShippingPage = () => {
 
                   <div>
                      <button className="btn btn-primary">
-                        {' '}
-                        {/* {loading ? <Loader /> : 'Create Account'} */}
                         Continue to Payment
                      </button>
                   </div>

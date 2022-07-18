@@ -7,6 +7,7 @@ import Message from '../components/Message';
 import Showcase from '../components/Showcase';
 import Review from '../components/Review';
 import { clearErrors } from '../actions/errorActions';
+import Meta from '../components/Meta';
 
 const ProductPage = () => {
    const params = useParams();
@@ -58,6 +59,7 @@ const ProductPage = () => {
 
    return (
       <div className="productpage">
+         <Meta title="Ade Farm Snails | Product" />
          {loading && <Loader />}
 
          {msg && <Message msg={msg} variant="error" box />}

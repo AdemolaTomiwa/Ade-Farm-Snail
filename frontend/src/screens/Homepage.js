@@ -9,6 +9,7 @@ import SocialMedia from '../components/SocialMedia';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { clearErrors } from '../actions/errorActions';
+import Meta from '../components/Meta';
 
 const Homepage = () => {
    const dispatch = useDispatch();
@@ -31,9 +32,10 @@ const Homepage = () => {
 
    return (
       <div className="homepage">
+         <Meta title="Ade Farm Snails" />
          <div className="showcase-home">
             <img
-               src="https://ocdn.eu/pulscms-transforms/1/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg"
+               src="https://res.cloudinary.com/the-tom-media/image/upload/v1658160593/adefarmsnails/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg_byvqvr.jpg"
                alt="Snails"
             />
             <div className="intro">

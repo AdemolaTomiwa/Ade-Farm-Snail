@@ -7,6 +7,7 @@ import { getOrders } from '../actions/orderActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { clearErrors } from '../actions/errorActions';
+import Meta from '../components/Meta';
 
 const AdminOrderListPage = () => {
    const dispatch = useDispatch();
@@ -32,8 +33,9 @@ const AdminOrderListPage = () => {
 
    return (
       <div className="adminorderlistpage">
+         <Meta title="Ade Farm Snails | Admin Orders" />
          <Showcase
-            img="https://ocdn.eu/pulscms-transforms/1/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg"
+            img="https://res.cloudinary.com/the-tom-media/image/upload/v1658160593/adefarmsnails/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg_byvqvr.jpg"
             title="All Orders"
          />
 

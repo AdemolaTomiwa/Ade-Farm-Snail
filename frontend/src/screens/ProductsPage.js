@@ -4,6 +4,7 @@ import { clearErrors } from '../actions/errorActions';
 import { getProducts } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import Meta from '../components/Meta';
 import Product from '../components/Product';
 import Showcase from '../components/Showcase';
 
@@ -23,8 +24,9 @@ const ProductsPage = () => {
 
    return (
       <div className="productspage">
+         <Meta title="Ade Farm Snails | Products" />
          <Showcase
-            img="https://ocdn.eu/pulscms-transforms/1/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg"
+            img="https://res.cloudinary.com/the-tom-media/image/upload/v1658160593/adefarmsnails/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg_byvqvr.jpg"
             title="Our Products"
          />
 

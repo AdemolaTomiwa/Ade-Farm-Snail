@@ -6,6 +6,7 @@ import Message from '../components/Message';
 import Showcase from '../components/Showcase';
 import Loader from '../components/Loader';
 import { clearErrors } from '../actions/errorActions';
+import Meta from '../components/Meta';
 
 const ConfirmOrderPage = () => {
    const dispatch = useDispatch();
@@ -60,8 +61,9 @@ const ConfirmOrderPage = () => {
 
    return (
       <div className="confirmorderpage">
+         <Meta title="Ade Farm Snails | Confirm Order" />
          <Showcase
-            img="https://ocdn.eu/pulscms-transforms/1/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg"
+            img="https://res.cloudinary.com/the-tom-media/image/upload/v1658160593/adefarmsnails/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg_byvqvr.jpg"
             title="Confirm Order"
          />
          <div className="confirmorder">

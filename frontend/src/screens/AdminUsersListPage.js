@@ -8,6 +8,7 @@ import Message from '../components/Message';
 import AdminCreateUserModal from '../components/AdminCreateUserModal';
 import { clearErrors } from '../actions/errorActions';
 import AdminSearchUserBox from '../components/SearchUserBox';
+import Meta from '../components/Meta';
 
 const AdminUserListPage = () => {
    const dispatch = useDispatch();
@@ -36,8 +37,9 @@ const AdminUserListPage = () => {
 
    return (
       <div className="adminuserlistpage">
+         <Meta title="Ade Farm Snails | Admin Users" />
          <Showcase
-            img="https://ocdn.eu/pulscms-transforms/1/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg"
+            img="https://res.cloudinary.com/the-tom-media/image/upload/v1658160593/adefarmsnails/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg_byvqvr.jpg"
             title="All Users"
          />
 

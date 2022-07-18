@@ -8,6 +8,7 @@ import Showcase from '../components/Showcase';
 import Review from '../components/Review';
 import AdminDeleteProductModal from '../components/AdminDeleteProductModal';
 import AdminEditProductModal from '../components/AdminEditProductModal';
+import Meta from '../components/Meta';
 
 const AdminProductPage = () => {
    const params = useParams();
@@ -36,6 +37,7 @@ const AdminProductPage = () => {
 
    return (
       <div className="adminproductpage">
+         <Meta title="Ade Farm Snails | Admin Product" />
          {loading && <Loader />}
 
          {msg && <Message msg={msg} variant="error" box />}

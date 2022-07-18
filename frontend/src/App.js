@@ -31,6 +31,7 @@ import ScrollToTop from './components/ScrollToTop';
 import AdminOrderPage from './screens/AdminOrderPage';
 import SearchPage from './screens/SearchPage';
 import AdminProductPage from './screens/AdminProductPage';
+import NotFoundPage from './screens/NotFoundPage';
 
 class App extends Component {
    render() {
@@ -106,6 +107,7 @@ class App extends Component {
                         element={<AdminUserListPage />}
                      />
                      <Route path="/user/:id" element={<UserPage />} />
+                     <Route path="*" element={<NotFoundPage />} />
                   </Routes>
                </div>
                <Footer />

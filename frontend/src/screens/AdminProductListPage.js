@@ -9,6 +9,7 @@ import Message from '../components/Message';
 import AdminCreateProductModal from '../components/AdminCreateProductModal';
 import { clearErrors } from '../actions/errorActions';
 import AdminSearchProductBox from '../components/SearchProductBox';
+import Meta from '../components/Meta';
 
 const AdminProductListPage = () => {
    const dispatch = useDispatch();
@@ -37,8 +38,9 @@ const AdminProductListPage = () => {
 
    return (
       <div className="adminproductlistpage">
+         <Meta title="Ade Farm Snails | Admin Products" />
          <Showcase
-            img="https://ocdn.eu/pulscms-transforms/1/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg"
+            img="https://res.cloudinary.com/the-tom-media/image/upload/v1658160593/adefarmsnails/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg_byvqvr.jpg"
             title="All Products"
          />
 

@@ -5,6 +5,7 @@ import { forgotPassword } from '../actions/userActions';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import Showcase from '../components/Showcase';
+import Meta from '../components/Meta';
 
 const ForgotPasswordPage = () => {
    const dispatch = useDispatch();
@@ -38,8 +39,9 @@ const ForgotPasswordPage = () => {
 
    return (
       <div className="forgotpasswordpage">
+         <Meta title="Ade Farm Snails | Forgot Password" />
          <Showcase
-            img="https://ocdn.eu/pulscms-transforms/1/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg"
+            img="https://res.cloudinary.com/the-tom-media/image/upload/v1658160593/adefarmsnails/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg_byvqvr.jpg"
             title="Forgot your Password"
          />
 

@@ -1,11 +1,13 @@
 import React from 'react';
+import Meta from '../components/Meta';
 import Showcase from '../components/Showcase';
 
 const ContactPage = () => {
    return (
       <div className="contactpage">
+         <Meta title="Ade Farm Snails | Contact Us" />
          <Showcase
-            img="https://ocdn.eu/pulscms-transforms/1/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg"
+            img="https://res.cloudinary.com/the-tom-media/image/upload/v1658160593/adefarmsnails/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg_byvqvr.jpg"
             title="Contact Us"
          />
          <div className="contact">
