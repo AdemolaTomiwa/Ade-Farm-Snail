@@ -15,6 +15,7 @@ const AdminCreateUserModal = ({ closeModal }) => {
    const [firstName, setFirstName] = useState('');
    const [lastName, setLastName] = useState('');
    const [email, setEmail] = useState('');
+   const [phoneNumber, setPhoneNumber] = useState('');
    const [password, setPassword] = useState('');
    const [showPassword, setshowPassword] = useState(false);
 
@@ -45,6 +46,7 @@ const AdminCreateUserModal = ({ closeModal }) => {
          firstName,
          lastName,
          email,
+         phoneNumber,
          password,
       };
 
@@ -80,6 +82,15 @@ const AdminCreateUserModal = ({ closeModal }) => {
                      onChange={(e) => setEmail(e.target.value)}
                      type="email"
                      id="email"
+                  />
+               </div>
+               <div>
+                  <label htmlFor="number">Phone Number</label>
+                  <input
+                     value={phoneNumber}
+                     onChange={(e) => setPhoneNumber(e.target.value)}
+                     type="text"
+                     id="number"
                   />
                </div>
                <div className="password">

@@ -5,6 +5,7 @@ import { createOrder } from '../actions/orderActions';
 import Message from '../components/Message';
 import Showcase from '../components/Showcase';
 import Loader from '../components/Loader';
+import { clearErrors } from '../actions/errorActions';
 
 const ConfirmOrderPage = () => {
    const dispatch = useDispatch();
@@ -23,10 +24,15 @@ const ConfirmOrderPage = () => {
    const { msg } = errorState;
 
    useEffect(() => {
+      if (!user) {
+         return navigate('/login/redirect=/');
+      }
+
+      dispatch(clearErrors());
       if (order) {
          navigate(`/order/${order._id}`);
       }
-   }, [order, navigate]);
+   }, [order, navigate, dispatch, user]);
 
    const toPrice = (num) => Number(num.toFixed(2));
    const itemPrice = toPrice(

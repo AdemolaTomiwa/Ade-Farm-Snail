@@ -11,7 +11,9 @@ const ChangePasswordModal = ({ closeModal }) => {
    const [currentPassword, setCurrentPassword] = useState('');
    const [newPassword, setNewPassword] = useState('');
    const [confirmPassword, setConfirmPassword] = useState('');
-   const [showPassword, setShowPassword] = useState('');
+   const [showPassword1, setShowPassword1] = useState('');
+   const [showPassword2, setShowPassword2] = useState('');
+   const [showPassword3, setShowPassword3] = useState('');
    const [successMsg, setSuccessMsg] = useState('');
 
    const updateUserState = useSelector((state) => state.updateUser);
@@ -39,10 +41,6 @@ const ChangePasswordModal = ({ closeModal }) => {
       dispatch(updateUser(user));
    };
 
-   const togglePassword = () => {
-      setShowPassword(!showPassword);
-   };
-
    return (
       <div className="changepasswordmodal modal">
          <div className="modal-content">
@@ -52,13 +50,13 @@ const ChangePasswordModal = ({ closeModal }) => {
                   <input
                      value={currentPassword}
                      onChange={(e) => setCurrentPassword(e.target.value)}
-                     type={showPassword ? 'text' : 'password'}
+                     type={showPassword1 ? 'text' : 'password'}
                      id="currentPassword"
                   />
                   <i
-                     onClick={togglePassword}
+                     onClick={() => setShowPassword1(!showPassword1)}
                      className={
-                        showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'
+                        showPassword1 ? 'fas fa-eye-slash' : 'fas fa-eye'
                      }
                   ></i>
                </div>
@@ -67,13 +65,13 @@ const ChangePasswordModal = ({ closeModal }) => {
                   <input
                      value={newPassword}
                      onChange={(e) => setNewPassword(e.target.value)}
-                     type={showPassword ? 'text' : 'password'}
+                     type={showPassword2 ? 'text' : 'password'}
                      id="newPassword"
                   />
                   <i
-                     onClick={togglePassword}
+                     onClick={() => setShowPassword2(!showPassword2)}
                      className={
-                        showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'
+                        showPassword2 ? 'fas fa-eye-slash' : 'fas fa-eye'
                      }
                   ></i>
                </div>
@@ -82,13 +80,13 @@ const ChangePasswordModal = ({ closeModal }) => {
                   <input
                      value={confirmPassword}
                      onChange={(e) => setConfirmPassword(e.target.value)}
-                     type={showPassword ? 'text' : 'password'}
+                     type={showPassword3 ? 'text' : 'password'}
                      id="confirmPassword"
                   />
                   <i
-                     onClick={togglePassword}
+                     onClick={() => setShowPassword3(!showPassword3)}
                      className={
-                        showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'
+                        showPassword3 ? 'fas fa-eye-slash' : 'fas fa-eye'
                      }
                   ></i>
                </div>

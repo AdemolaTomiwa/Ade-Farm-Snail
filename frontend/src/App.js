@@ -27,12 +27,17 @@ import AdminOrderListPage from './screens/AdminOrderListPage';
 import AdminProductListPage from './screens/AdminProductListPage';
 import AdminUserListPage from './screens/AdminUsersListPage';
 import UserPage from './screens/UserPage';
+import ScrollToTop from './components/ScrollToTop';
+import AdminOrderPage from './screens/AdminOrderPage';
+import SearchPage from './screens/SearchPage';
+import AdminProductPage from './screens/AdminProductPage';
 
 class App extends Component {
    render() {
       return (
          <Provider store={store}>
             <Router>
+               <ScrollToTop />
                <Header />
                <div className="container">
                   <Routes>
@@ -46,6 +51,8 @@ class App extends Component {
                      <Route path="/login" element={<LoginPage />} />
                      <Route path="/login/:redirect" element={<LoginPage />} />
                      <Route path="/register" element={<RegisterPage />} />
+                     <Route path="/search" element={<SearchPage />} />
+                     <Route path="/search/:keyword" element={<SearchPage />} />
                      <Route
                         path="/register/:redirect"
                         element={<RegisterPage />}
@@ -76,6 +83,14 @@ class App extends Component {
                      <Route
                         path="/all-orders"
                         element={<AdminOrderListPage />}
+                     />
+                     <Route
+                        path="/admin/product/:id"
+                        element={<AdminProductPage />}
+                     />
+                     <Route
+                        path="/admin/order/:id"
+                        element={<AdminOrderPage />}
                      />
                      <Route
                         path="/all-products"

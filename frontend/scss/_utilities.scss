@@ -311,6 +311,7 @@ select {
       padding: 0.5rem;
       padding-right: 3rem;
       width: 100%;
+      font-family: 'Montserrat', sans-serif;
       font-weight: lighter;
       cursor: pointer;
    }
@@ -432,7 +433,6 @@ form {
    width: 100%;
    margin: auto;
    z-index: 2;
-   overflow: scroll;
 
    .modal-content {
       background-color: darken($primary-color, 10%);
@@ -466,9 +466,9 @@ form {
 
             i {
                position: absolute;
-               top: 61%;
-               right: 1%;
-               transform: translate(-1%, -61%);
+               top: 65%;
+               right: 2%;
+               transform: translate(-2%, -65%);
                cursor: pointer;
                color: $white-color;
             }
@@ -489,6 +489,28 @@ form {
             width: inherit;
             // margin: 0 3rem;
          }
+      }
+   }
+
+   .delete {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      width: 30%;
+      margin: auto;
+      // height: 300px;
+
+      h3 {
+         color: $white-color;
+      }
+
+      .button {
+         display: flex;
+         width: 60%;
+         margin: 2rem auto;
+         align-items: center;
+         justify-content: space-between;
       }
    }
 }

@@ -9,8 +9,39 @@ const router = express.Router();
 // GET @/api/products
 // Public
 router.get('/', (req, res) => {
-   Product.find()
-      .sort({ createdAt: -1 })
+   const keyword = req.query.keyword
+      ? {
+           $or: [
+              {
+                 name: {
+                    $regex: req.query.keyword,
+                    $options: 'i',
+                 },
+              },
+              {
+                 image: {
+                    $regex: req.query.keyword,
+                    $options: 'i',
+                 },
+              },
+              {
+                 imagePublicId: {
+                    $regex: req.query.keyword,
+                    $options: 'i',
+                 },
+              },
+              {
+                 description: {
+                    $regex: req.query.keyword,
+                    $options: 'i',
+                 },
+              },
+           ],
+        }
+      : {};
+
+   Product.find({ ...keyword })
+      .sort({ updatedAt: -1 })
       .then((product) => res.status(200).json(product))
       .catch((err) => res.status(400).json({ msg: 'An error occured!!!' }));
 });
@@ -20,7 +51,7 @@ router.get('/', (req, res) => {
 // Public
 router.get('/recent/products', (req, res) => {
    Product.find()
-      .sort({ createdAt: -1 })
+      .sort({ updatedAt: -1 })
       .limit(3)
       .then((product) => res.status(200).json(product))
       .catch((err) => res.status(400).json({ msg: 'An error occured!!!' }));
@@ -45,26 +76,107 @@ router.get('/:id', (req, res) => {
 // POST @/api/products
 // Private
 router.post('/', (req, res) => {
-   const { name, image, description, price, numReviews } = req.body;
+   const { name, image, description, price, numReviews, imagePublicId } =
+      req.body;
 
-   // Validation
-   if (!name || !image || !description || !price) {
-      return res.status(400).json({ msg: 'Please enter all fields!' });
+   // Validation;
+   if (!name || !description || !price) {
+      res.status(400).json({ msg: 'Please enter all fields!' });
+   } else if (!image) {
+      res.status(400).json({ msg: 'Please upload product image' });
+   } else {
+      //    Create new Product object
+      const newProduct = new Product({
+         name,
+         image,
+         description,
+         price,
+         numReviews,
+         imagePublicId,
+      });
+
+      //    Save product to Database
+      newProduct
+         .save()
+         .then((product) => res.status(201).json(product))
+         .catch((err) => res.status(400).json({ msg: 'An error occured!' }));
    }
+});
 
-   //    Create new Product object
-   const newProduct = new Product({
-      name,
-      image,
-      description,
-      price,
-      numReviews,
+// Create Product Review
+// POST @/api/products/:id/reviews
+// Private
+router.post('/:id/reviews', auth, (req, res) => {
+   const { comment, rating, firstName, lastName } = req.body;
+
+   Product.findById(req.params.id).then((product) => {
+      if (product) {
+         const alreadyReviewed = product.reviews.find(
+            (r) => r.user.toString() === req.user.id.toString()
+         );
+
+         if (alreadyReviewed) {
+            res.status(400).json({ msg: 'Product already reviewed!' });
+         } else {
+            if (!rating || !comment) {
+               res.status(400).json({ msg: 'Please enter all fields!' });
+            } else {
+               const review = {
+                  name: `${firstName} ${lastName}`,
+                  rating: Number(rating),
+                  comment,
+                  user: req.user.id,
+               };
+
+               product.reviews.push(review);
+
+               product.numReviews = product.reviews.length;
+
+               product.rating =
+                  product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+                  product.reviews.length;
+
+               product
+                  .save()
+                  .then(() =>
+                     res
+                        .status(201)
+                        .json({ product, msg: 'Review Added successfully!' })
+                  );
+            }
+         }
+      } else {
+         res.status(404).json({
+            msg: 'An error occured! Product does not exist!!!',
+         });
+      }
    });
+});
 
-   //    Save product to Database
-   newProduct
-      .save()
-      .then((product) => res.status(201).json(product))
+router.put('/', auth, (req, res) => {
+   const { name, image, description, price, imagePublicId, id } = req.body;
+
+   Product.findById(id)
+      .then((product) => {
+         if (product) {
+            product.name = name || product.name;
+            product.description = description || product.description;
+            product.price = price || product.price;
+            product.image = image || product.image;
+            product.imagePublicId = imagePublicId || product.imagePublicId;
+
+            product
+               .save()
+               .then(() => res.status(201).json(product))
+               .catch((err) =>
+                  res
+                     .status(400)
+                     .json({ msg: 'An error occured! Product not updated!' })
+               );
+         } else {
+            res.status(400).json({ msg: 'Product does not exist!!!' });
+         }
+      })
       .catch((err) => res.status(400).json({ msg: 'An error occured!' }));
 });
 

@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Showcase from '../components/Showcase';
-import { getOrder } from '../actions/orderActions';
+import { deliverOrder, getOrder, payOrder } from '../actions/orderActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { clearErrors } from '../actions/errorActions';
 
-const OrderPage = () => {
+const AdminOrderPage = () => {
    const dispatch = useDispatch();
    const params = useParams();
    const navigate = useNavigate();
@@ -17,6 +17,12 @@ const OrderPage = () => {
 
    const orderState = useSelector((state) => state.order);
    const { order, loading, shippingAddress, userObj, orders } = orderState;
+
+   const payState = useSelector((state) => state.payOrder);
+   const { loadingPay } = payState;
+
+   const deliverState = useSelector((state) => state.deliverOrder);
+   const { loadingDeliver } = deliverState;
 
    const errorState = useSelector((state) => state.error);
    const { msg } = errorState;
@@ -29,6 +35,14 @@ const OrderPage = () => {
       dispatch(clearErrors());
       dispatch(getOrder(params.id));
    }, [dispatch, params, navigate, user]);
+
+   const handlePayOrder = () => {
+      dispatch(payOrder(params.id));
+   };
+
+   const handleDeliverOrder = () => {
+      dispatch(deliverOrder(params.id));
+   };
 
    return (
       <div className="orderpage">
@@ -120,11 +134,31 @@ const OrderPage = () => {
                               <span># {order.totalPrice}</span>
                            </div>
 
-                           <Link to="/my-orders" className="button">
-                              <button className="btn btn-primary">
-                                 My Orders
-                              </button>
-                           </Link>
+                           {!order.isPaid ? (
+                              <div className="button">
+                                 <button
+                                    onClick={handlePayOrder}
+                                    className="btn btn-primary"
+                                 >
+                                    {loadingPay ? <Loader /> : 'Mark as Paid'}
+                                 </button>
+                              </div>
+                           ) : (
+                              !order.isDelivered && (
+                                 <div className="button">
+                                    <button
+                                       onClick={handleDeliverOrder}
+                                       className="btn btn-primary"
+                                    >
+                                       {loadingDeliver ? (
+                                          <Loader />
+                                       ) : (
+                                          'Mark as Delivered'
+                                       )}
+                                    </button>
+                                 </div>
+                              )
+                           )}
                         </div>
 
                         {msg && <Message msg={msg} variant="error" box />}
@@ -137,4 +171,4 @@ const OrderPage = () => {
    );
 };
 
-export default OrderPage;
+export default AdminOrderPage;

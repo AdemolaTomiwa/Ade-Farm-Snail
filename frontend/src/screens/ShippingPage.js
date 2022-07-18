@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { saveShippingAddress } from '../actions/cartActions';
+import { clearErrors } from '../actions/errorActions';
 import Message from '../components/Message';
 import Showcase from '../components/Showcase';
 
@@ -17,6 +18,17 @@ const ShippingPage = () => {
    const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
    const [country, setCountry] = useState(shippingAddress.country);
    const [msg, setMsg] = useState(null);
+
+   const loginState = useSelector((state) => state.login);
+   const { user } = loginState;
+
+   useEffect(() => {
+      if (!user) {
+         return navigate('/login/redirect=/');
+      }
+
+      dispatch(clearErrors());
+   }, [dispatch, navigate, user]);
 
    const handleSubmit = (e) => {
       e.preventDefault();

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Moment from 'react-moment';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getRecentOrders } from '../actions/orderActions';
 import { getRecentUsers } from '../actions/userActions';
 import Loader from '../components/Loader';
@@ -14,9 +14,13 @@ import AdminCreateUserModal from '../components/AdminCreateUserModal';
 
 const AdminPage = () => {
    const dispatch = useDispatch();
+   const navigate = useNavigate();
 
    const [openProductModal, setOpenProductModal] = useState(false);
    const [openUserModal, setOpenUserModal] = useState(false);
+
+   const loginState = useSelector((state) => state.login);
+   const { user } = loginState;
 
    const recentUsers = useSelector((state) => state.recentUserList);
    const { loading, users } = recentUsers;
@@ -31,11 +35,15 @@ const AdminPage = () => {
    const { msg } = errorState;
 
    useEffect(() => {
+      if (!user) {
+         return navigate('/login/redirect=/');
+      }
+
       dispatch(clearErrors());
       dispatch(getRecentUsers());
       dispatch(getRecentOrders());
       dispatch(getRecentProducts());
-   }, [dispatch]);
+   }, [dispatch, navigate, user]);
 
    return (
       <div className="adminpage">
@@ -135,7 +143,7 @@ const AdminPage = () => {
                         products.map((product) => (
                            <Link
                               key={product._id}
-                              to={`/product/${product._id}`}
+                              to={`/admin/product/${product._id}`}
                            >
                               <div className="item-box">
                                  <div className="img">
@@ -187,7 +195,10 @@ const AdminPage = () => {
                   <div className="items">
                      {orders &&
                         orders.map((order) => (
-                           <Link key={order._id} to={`/order/${order._id}`}>
+                           <Link
+                              key={order._id}
+                              to={`/admin/order/${order._id}`}
+                           >
                               <div className="item-box">
                                  <div className="img">
                                     <img
@@ -229,7 +240,7 @@ const AdminPage = () => {
                                     )}
                                  </div>
                                  <div>
-                                    {order.isdelivered ? (
+                                    {order.isDelivered ? (
                                        <h5>
                                           {' '}
                                           <i className="fas fa-check text-success"></i>{' '}

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Typical from 'react-typical';
+import { Image, Transformation } from 'cloudinary-react';
 import { getRecentProducts } from '../actions/productActions';
 import OurFarm from '../components/OurFarm';
 import SocialMedia from '../components/SocialMedia';
@@ -71,7 +72,12 @@ const Homepage = () => {
                products.map((product) => (
                   <div key={product._id} className="product">
                      <div className="img">
-                        <img src={product.image} alt={product.name} />
+                        <Image
+                           cloudName="the-tom-media"
+                           publicId={product.imagePublicId}
+                        >
+                           <Transformation />
+                        </Image>
                      </div>
                      <div className="content">
                         <Link to={`/product/${product._id}`}>

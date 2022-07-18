@@ -1,13 +1,25 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Showcase from '../components/Showcase';
 import { savePaymentMethod } from '../actions/cartActions';
+import { clearErrors } from '../actions/errorActions';
 
 const PaymentPage = () => {
    const dispatch = useDispatch();
    const navigate = useNavigate();
    const [payment, setPayment] = useState('Cash');
+
+   const loginState = useSelector((state) => state.login);
+   const { user } = loginState;
+
+   useEffect(() => {
+      if (!user) {
+         return navigate('/login/redirect=/');
+      }
+
+      dispatch(clearErrors());
+   }, [dispatch, navigate, user]);
 
    const handleSubmit = (e) => {
       e.preventDefault();

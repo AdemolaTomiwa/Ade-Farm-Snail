@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { addToCart } from '../actions/cartActions';
+import { clearErrors } from '../actions/errorActions';
 import CartItem from '../components/CartItem';
 import Message from '../components/Message';
 import Showcase from '../components/Showcase';
@@ -23,6 +24,7 @@ const CartPage = ({ location }) => {
    const { user } = loginState;
 
    useEffect(() => {
+      dispatch(clearErrors());
       if (id) {
          dispatch(addToCart(id, headQty));
       }

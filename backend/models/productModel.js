@@ -14,7 +14,7 @@ const reviewSchema = mongoose.Schema(
          type: String,
          required: true,
       },
-      userId: {
+      user: {
          type: mongoose.Schema.Types.ObjectId,
          required: true,
          ref: 'User',
@@ -32,6 +32,10 @@ const productSchema = new mongoose.Schema(
          required: true,
       },
       image: {
+         type: String,
+         required: true,
+      },
+      imagePublicId: {
          type: String,
          required: true,
       },

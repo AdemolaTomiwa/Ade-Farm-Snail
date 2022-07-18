@@ -4,13 +4,19 @@ import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import NotFoundPage from './NotFoundPage';
 import Showcase from '../components/Showcase';
+import { clearErrors } from '../actions/errorActions';
+import { useDispatch } from 'react-redux';
 
 const EmailVerify = () => {
+   const dispatch = useDispatch();
+
    const [validUrl, setValidUrl] = useState(true);
    const [msg, setMsg] = useState('');
    const param = useParams();
 
    useEffect(() => {
+      dispatch(clearErrors());
+
       const verifyEmailUrl = async () => {
          try {
             const url = `/api/users/${param.id}/verify/${param.token}`;
@@ -23,7 +29,7 @@ const EmailVerify = () => {
          }
       };
       verifyEmailUrl();
-   }, [param]);
+   }, [param, dispatch]);
 
    return (
       <div className="email-verify">

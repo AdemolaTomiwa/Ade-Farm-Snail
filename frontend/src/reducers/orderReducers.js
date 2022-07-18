@@ -9,12 +9,18 @@ import {
    ORDER_CREATE_REQUEST,
    ORDER_CREATE_RESET,
    ORDER_CREATE_SUCCESS,
+   ORDER_DELIVER_FAIL,
+   ORDER_DELIVER_REQUEST,
+   ORDER_DELIVER_SUCCESS,
    ORDER_DETAILS_FAIL,
    ORDER_DETAILS_REQUEST,
    ORDER_DETAILS_SUCCESS,
    ORDER_LIST_FAIL,
    ORDER_LIST_REQUEST,
    ORDER_LIST_SUCCESS,
+   ORDER_PAY_FAIL,
+   ORDER_PAY_REQUEST,
+   ORDER_PAY_SUCCESS,
    RECENT_ORDER_LIST_FAIL,
    RECENT_ORDER_LIST_REQUEST,
    RECENT_ORDER_LIST_SUCCESS,
@@ -128,6 +134,38 @@ export const getUserOrdersReducer = (state = { orders: [] }, action) => {
          };
       case USER_ORDER_LIST_FAIL:
          return { loading: false };
+      default:
+         return state;
+   }
+};
+
+export const payOrderReducer = (state = { order: {} }, action) => {
+   switch (action.type) {
+      case ORDER_PAY_REQUEST:
+         return { loadingPay: true };
+      case ORDER_PAY_SUCCESS:
+         return {
+            loadingPay: false,
+            order: action.payload,
+         };
+      case ORDER_PAY_FAIL:
+         return { loadingPay: false };
+      default:
+         return state;
+   }
+};
+
+export const deliverOrderReducer = (state = { order: {} }, action) => {
+   switch (action.type) {
+      case ORDER_DELIVER_REQUEST:
+         return { loadingDeliver: true };
+      case ORDER_DELIVER_SUCCESS:
+         return {
+            loadingDeliver: false,
+            order: action.payload,
+         };
+      case ORDER_DELIVER_FAIL:
+         return { loadingDeliver: false };
       default:
          return state;
    }

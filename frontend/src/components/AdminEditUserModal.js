@@ -9,6 +9,7 @@ const AdminEditUserModal = ({ userObj, closeModal }) => {
 
    const [firstName, setFirstName] = useState(userObj.firstName);
    const [lastName, setLastName] = useState(userObj.lastName);
+   const [phoneNumber, setPhoneNumber] = useState(userObj.phoneNumber);
    const [isAdmin, setIsAdmin] = useState(userObj.isAdmin);
 
    const adminUpdateUserState = useSelector((state) => state.adminUpdateUser);
@@ -31,6 +32,7 @@ const AdminEditUserModal = ({ userObj, closeModal }) => {
          firstName,
          lastName,
          isAdmin,
+         phoneNumber,
          id: userObj._id,
       };
 
@@ -57,6 +59,15 @@ const AdminEditUserModal = ({ userObj, closeModal }) => {
                      onChange={(e) => setLastName(e.target.value)}
                      type="text"
                      id="lastName"
+                  />
+               </div>
+               <div>
+                  <label htmlFor="number">Phone Number</label>
+                  <input
+                     value={phoneNumber}
+                     onChange={(e) => setPhoneNumber(e.target.value)}
+                     type="text"
+                     id="number"
                   />
                </div>
                <div className="checkbox">

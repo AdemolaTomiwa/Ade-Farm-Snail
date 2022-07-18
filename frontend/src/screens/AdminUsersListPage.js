@@ -24,6 +24,7 @@ const AdminUserListPage = () => {
    const { msg } = errorState;
 
    useEffect(() => {
+      dispatch(clearErrors());
       if (!user) {
          return navigate('/login/redirect=/');
       }

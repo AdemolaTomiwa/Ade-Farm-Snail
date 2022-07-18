@@ -25,6 +25,7 @@ const AdminProductListPage = () => {
    const { msg } = errorState;
 
    useEffect(() => {
+      dispatch(clearErrors());
       if (!user) {
          return navigate('/login/redirect=/');
       }
@@ -64,7 +65,10 @@ const AdminProductListPage = () => {
 
                   {products &&
                      products.map((product) => (
-                        <Link key={product._id} to={`/product/${product._id}`}>
+                        <Link
+                           key={product._id}
+                           to={`/admin/product/${product._id}`}
+                        >
                            <div className="item-box">
                               <div className="img">
                                  <img src={product.image} alt={product.image} />

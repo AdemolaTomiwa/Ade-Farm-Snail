@@ -6,6 +6,7 @@ import Showcase from '../components/Showcase';
 import { getOrders } from '../actions/orderActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { clearErrors } from '../actions/errorActions';
 
 const AdminOrderListPage = () => {
    const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const AdminOrderListPage = () => {
    const { msg } = errorState;
 
    useEffect(() => {
+      dispatch(clearErrors());
       if (!user) {
          return navigate('/login/redirect=/');
       }
@@ -50,7 +52,7 @@ const AdminOrderListPage = () => {
 
                   {orders &&
                      orders.map((order) => (
-                        <Link key={order._id} to={`/order/${order._id}`}>
+                        <Link key={order._id} to={`/admin/order/${order._id}`}>
                            <div className="item-box">
                               <div className="img">
                                  <img
@@ -92,7 +94,7 @@ const AdminOrderListPage = () => {
                                  )}
                               </div>
                               <div>
-                                 {order.isdelivered ? (
+                                 {order.isDelivered ? (
                                     <h5>
                                        {' '}
                                        <i className="fas fa-check text-success"></i>{' '}

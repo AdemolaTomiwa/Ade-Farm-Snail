@@ -16,6 +16,7 @@ const RegisterPage = () => {
    const [firstName, setFirstName] = useState('');
    const [lastName, setLastName] = useState('');
    const [email, setEmail] = useState('');
+   const [phoneNumber, setPhoneNumber] = useState('');
    const [password, setPassword] = useState('');
 
    const registerState = useSelector((state) => state.register);
@@ -46,6 +47,7 @@ const RegisterPage = () => {
          lastName,
          email,
          password,
+         phoneNumber,
       };
 
       dispatch(registerUser(user));
@@ -86,6 +88,15 @@ const RegisterPage = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         type="email"
                         id="email"
+                     />
+                  </div>
+                  <div>
+                     <label htmlFor="number">Phone Number</label>
+                     <input
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        type="text"
+                        id="number"
                      />
                   </div>
                   <div className="password">

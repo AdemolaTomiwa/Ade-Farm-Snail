@@ -6,6 +6,7 @@ import Showcase from '../components/Showcase';
 import { getMyOrders } from '../actions/orderActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { clearErrors } from '../actions/errorActions';
 
 const MyOrdersPage = () => {
    const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const MyOrdersPage = () => {
    const { msg } = errorState;
 
    useEffect(() => {
+      dispatch(clearErrors());
       if (!user) {
          return navigate('/login/redirect=/');
       }
@@ -83,7 +85,7 @@ const MyOrdersPage = () => {
                                  )}
                               </div>
                               <div>
-                                 {order.isdelivered ? (
+                                 {order.isDelivered ? (
                                     <h5 className="text-success">Delivered</h5>
                                  ) : (
                                     <h5 className="text-danger">

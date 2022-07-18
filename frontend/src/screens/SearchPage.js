@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
+import Showcase from '../components/Showcase';
+import SearchBox from '../components/SearchBox';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearErrors } from '../actions/errorActions';
 import { getProducts } from '../actions/productActions';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
+import { useParams } from 'react-router-dom';
 import Product from '../components/Product';
-import Showcase from '../components/Showcase';
 
-const ProductsPage = () => {
+const SearchPage = () => {
    const dispatch = useDispatch();
+   const params = useParams();
 
    const productState = useSelector((state) => state.products);
    const { loading, products } = productState;
@@ -18,22 +21,24 @@ const ProductsPage = () => {
 
    useEffect(() => {
       dispatch(clearErrors());
-      dispatch(getProducts());
-   }, [dispatch]);
+      dispatch(getProducts(params.keyword));
+   }, [dispatch, params]);
 
    return (
-      <div className="productspage">
+      <div className="searchpage">
          <Showcase
             img="https://ocdn.eu/pulscms-transforms/1/5jxktkqTURBXy8zMWI5OWFkYTkyMzllZTg3Y2M3Zjk2Mzc5M2VhZjZhZC5qcGVnkpUDADzNBkDNA4STBc0EsM0Cdg"
-            title="Our Products"
+            title="Search Products"
          />
 
-         {loading && <Loader />}
-
-         {msg && <Message msg={msg} variant="error" box />}
-
-         <div className="products">
+         <div className="search">
             <div className="content">
+               <SearchBox />
+
+               {loading && <Loader />}
+
+               {msg && <Message msg={msg} variant="error" box />}
+
                <div className="products-container">
                   {products &&
                      products.map((product) => (
@@ -46,4 +51,4 @@ const ProductsPage = () => {
    );
 };
 
-export default ProductsPage;
+export default SearchPage;

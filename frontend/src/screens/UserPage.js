@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Moment from 'react-moment';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getUser } from '../actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -13,8 +13,11 @@ import { clearErrors } from '../actions/errorActions';
 const UserPage = () => {
    const params = useParams();
    const dispatch = useDispatch();
+   const navigate = useNavigate();
 
    const [openModal, setOpenModal] = useState(false);
+
+   const loginState = useSelector((state) => state.login);
 
    const userDetailsState = useSelector((state) => state.userDetails);
    const { loading, user } = userDetailsState;
@@ -26,9 +29,14 @@ const UserPage = () => {
    const { msg } = errorState;
 
    useEffect(() => {
+      if (!loginState.user) {
+         return navigate('/login/redirect=/');
+      }
+
+      dispatch(clearErrors());
       dispatch(getUser(params.id));
       dispatch(getUserOrders(params.id));
-   }, [dispatch, params]);
+   }, [dispatch, params, loginState, navigate]);
 
    return (
       <div className="userpage">
@@ -49,6 +57,7 @@ const UserPage = () => {
                         {user.firstName} {user.lastName}
                      </h3>
                      <h4>{user.email}</h4>
+                     <h4>{user.phoneNumber}</h4>
                      <h5>{user.isAdmin ? 'Admin' : 'Not Admin'}</h5>
                      <i
                         onClick={() => setOpenModal(true)}

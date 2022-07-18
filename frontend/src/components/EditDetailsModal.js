@@ -9,6 +9,7 @@ const EditDetailsModal = ({ userObj, closeModal }) => {
 
    const [firstName, setFirstName] = useState(userObj.firstName);
    const [lastName, setLastName] = useState(userObj.lastName);
+   const [phoneNumber, setPhoneNumber] = useState(userObj.phoneNumber);
 
    const updateUserState = useSelector((state) => state.updateUser);
    const { loading, success } = updateUserState;
@@ -26,6 +27,7 @@ const EditDetailsModal = ({ userObj, closeModal }) => {
       const user = {
          firstName,
          lastName,
+         phoneNumber,
       };
 
       dispatch(updateUser(user));
@@ -51,6 +53,15 @@ const EditDetailsModal = ({ userObj, closeModal }) => {
                      onChange={(e) => setLastName(e.target.value)}
                      type="text"
                      id="lastName"
+                  />
+               </div>
+               <div>
+                  <label htmlFor="number">Phone Number</label>
+                  <input
+                     value={phoneNumber}
+                     onChange={(e) => setPhoneNumber(e.target.value)}
+                     type="text"
+                     id="number"
                   />
                </div>
                {msg && <Message msg={msg} variant="error" box />}

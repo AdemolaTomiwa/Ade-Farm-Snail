@@ -14,9 +14,9 @@ import User from '../models/userModel.js';
 // Get all Users
 // GET @/api/users
 // Private
-router.get('/', (req, res) => {
+router.get('/', auth, (req, res) => {
    User.find()
-      .sort({ createdAt: -1 })
+      .sort({ updatedAt: -1 })
       .then((user) => res.status(200).json(user))
       .catch(() => res.status(400).json({ msg: 'An error occured!' }));
 });
@@ -24,9 +24,9 @@ router.get('/', (req, res) => {
 // Get recent Users
 // GET @/api/users/recent/users
 // Private
-router.get('/recent/users', (req, res) => {
+router.get('/recent/users', auth, (req, res) => {
    User.find()
-      .sort({ createdAt: -1 })
+      .sort({ updatedAt: -1 })
       .limit(3)
       .then((user) => res.status(200).json(user))
       .catch(() => res.status(400).json({ msg: 'An error occured!' }));
@@ -51,7 +51,8 @@ router.get('/:id', auth, (req, res) => {
 // POST @/api/users
 // Public
 router.post('/', (req, res) => {
-   const { firstName, lastName, email, password, isAdmin } = req.body;
+   const { firstName, lastName, email, password, isAdmin, phoneNumber } =
+      req.body;
 
    User.findOne({ email }).then((user) => {
       if (user) {
@@ -61,8 +62,12 @@ router.post('/', (req, res) => {
       }
 
       // Validation
-      if (!firstName || !lastName || !email || !password) {
+      if (!firstName || !lastName || !email || !phoneNumber || !password) {
          res.status(400).json({ msg: 'Please enter all fields!' });
+      } else if (phoneNumber.length !== 11) {
+         res.status(400).json({
+            msg: 'Please enter a valid phone number!',
+         });
       } else if (password.length < 6) {
          res.status(400).json({
             msg: 'Password character should be at least 6 character long!',
@@ -75,6 +80,7 @@ router.post('/', (req, res) => {
             email,
             password,
             isAdmin,
+            phoneNumber,
          });
 
          // Create hash and hash the user password
@@ -102,8 +108,8 @@ router.post('/', (req, res) => {
                                  email: user.email,
                                  isAdmin: user.isAdmin,
                                  verified: user.verified,
+                                 phoneNumber: user.phoneNumber,
                               },
-                              msg: 'An email has been sent to you',
                            });
                         }
                      );
@@ -170,6 +176,7 @@ router.post('/auth', (req, res) => {
                            email: user.email,
                            isAdmin: user.isAdmin,
                            verified: user.verified,
+                           phoneNumber: user.phoneNumber,
                         },
                      });
                   }
@@ -211,6 +218,7 @@ router.put('/', auth, (req, res) => {
    const {
       firstName,
       lastName,
+      phoneNumber,
       newPassword,
       confirmPassword,
       currentPassword,
@@ -221,6 +229,7 @@ router.put('/', auth, (req, res) => {
          if (user) {
             user.firstName = firstName || user.firstName;
             user.lastName = lastName || user.lastName;
+            user.phoneNumber = phoneNumber || user.phoneNumber;
 
             if (currentPassword) {
                if (newPassword !== confirmPassword) {
@@ -265,6 +274,9 @@ router.put('/', auth, (req, res) => {
                                                 firstName: user.firstName,
                                                 lastName: user.lastName,
                                                 email: user.email,
+                                                isAdmin: user.isAdmin,
+                                                verified: user.verified,
+                                                phoneNumber: user.phoneNumber,
                                              },
                                           });
                                        }
@@ -280,6 +292,34 @@ router.put('/', auth, (req, res) => {
                         if (err) throw err;
                      });
                }
+            } else {
+               user
+                  .save()
+                  .then((user) => {
+                     jwt.sign(
+                        { id: user._id },
+                        process.env.JWT_SECRET,
+                        (err, token) => {
+                           if (err) throw err;
+
+                           res.json({
+                              token,
+                              user: {
+                                 id: user._id,
+                                 firstName: user.firstName,
+                                 lastName: user.lastName,
+                                 email: user.email,
+                                 isAdmin: user.isAdmin,
+                                 verified: user.verified,
+                                 phoneNumber: user.phoneNumber,
+                              },
+                           });
+                        }
+                     );
+                  })
+                  .catch((err) => {
+                     if (err) throw err;
+                  });
             }
          }
       })
@@ -291,13 +331,14 @@ router.put('/', auth, (req, res) => {
 });
 
 router.put('/admin/update', auth, (req, res) => {
-   const { firstName, lastName, isAdmin, id } = req.body;
+   const { firstName, lastName, isAdmin, id, phoneNumber } = req.body;
 
    User.findById(id)
       .then((user) => {
          if (user) {
             user.firstName = firstName || user.firstName;
             user.lastName = lastName || user.lastName;
+            user.phoneNumber = phoneNumber || user.phoneNumber;
             user.isAdmin = isAdmin;
 
             user.save().then(res.status(201).json(user));

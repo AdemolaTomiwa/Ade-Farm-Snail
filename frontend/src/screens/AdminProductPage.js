@@ -7,8 +7,10 @@ import Message from '../components/Message';
 import Showcase from '../components/Showcase';
 import Review from '../components/Review';
 import { clearErrors } from '../actions/errorActions';
+import AdminDeleteProductModal from '../components/AdminDeleteProductModal';
+import AdminEditProductModal from '../components/AdminEditProductModal';
 
-const ProductPage = () => {
+const AdminProductPage = () => {
    const params = useParams();
    const dispatch = useDispatch();
    const navigate = useNavigate();
@@ -16,6 +18,8 @@ const ProductPage = () => {
    const [qty, setQty] = useState('1');
    const [rating, setRating] = useState('');
    const [comment, setComment] = useState('');
+   const [openModal, setOpenModal] = useState(false);
+   const [openEditModal, setOpenEditModal] = useState(false);
 
    const productState = useSelector((state) => state.product);
    const { loading, product, reviews } = productState;
@@ -57,7 +61,7 @@ const ProductPage = () => {
    };
 
    return (
-      <div className="productpage">
+      <div className="adminproductpage">
          {loading && <Loader />}
 
          {msg && <Message msg={msg} variant="error" box />}
@@ -65,7 +69,7 @@ const ProductPage = () => {
          {product && (
             <>
                <Showcase img={product.image} title={product.name} />
-               <div className="product">
+               <div className="adminproduct">
                   <div className="content">
                      <div className="main">
                         <div className="img">
@@ -77,6 +81,36 @@ const ProductPage = () => {
                            <p>{product.description}</p>
                         </div>
                      </div>
+                     <div className="admin-buttons">
+                        <button
+                           onClick={() => setOpenEditModal(true)}
+                           className="btn btn-primary"
+                        >
+                           <i className="fas fa-edit"></i> Edit Product
+                        </button>
+                        <button
+                           onClick={() => setOpenModal(true)}
+                           className="btn btn-danger"
+                        >
+                           <i className="fas fa-trash"></i> Delete Product
+                        </button>
+                     </div>
+
+                     {openModal && (
+                        <AdminDeleteProductModal
+                           closeModal={() => setOpenModal(false)}
+                           id={product._id}
+                           publicId={product.imagePublicId}
+                        />
+                     )}
+
+                     {openEditModal && (
+                        <AdminEditProductModal
+                           closeModal={() => setOpenEditModal(false)}
+                           product={product}
+                        />
+                     )}
+
                      <div className="sq-box">
                         <div>
                            <p>Price:</p>
@@ -209,4 +243,4 @@ const ProductPage = () => {
    );
 };
 
-export default ProductPage;
+export default AdminProductPage;

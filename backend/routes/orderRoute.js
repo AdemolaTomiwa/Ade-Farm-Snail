@@ -10,7 +10,7 @@ import { auth } from '../middleware/auth.js';
 // Private
 router.get('/', auth, (req, res) => {
    Order.find()
-      .sort({ createdAt: -1 })
+      .sort({ updatedAt: -1 })
       .then((order) => res.status(200).json(order))
       .catch(() => res.status(400).json({ msg: 'An error occured!' }));
 });
@@ -20,7 +20,7 @@ router.get('/', auth, (req, res) => {
 // Private
 router.get('/recent/orders', auth, (req, res) => {
    Order.find()
-      .sort({ createdAt: -1 })
+      .sort({ updatedAt: -1 })
       .limit(3)
       .then((order) => res.status(200).json(order))
       .catch(() => res.status(400).json({ msg: 'An error occured!' }));
@@ -109,6 +109,44 @@ router.get('/user/orders/:id', auth, (req, res) => {
       .sort({ createdAt: -1 })
       .then((order) => res.status(200).json(order))
       .catch(() => res.status(400).json({ msg: 'An error occured!' }));
+});
+
+// Update Order to paid
+// PUT @/api/orders/:id/pay/cash
+// Private
+router.put('/:id/pay/cash', auth, (req, res) => {
+   Order.findById(req.params.id).then((order) => {
+      if (order) {
+         order.isPaid = true;
+         order.paidAt = Date.now();
+
+         order
+            .save()
+            .then(() => res.status(201).json(order))
+            .catch(() => res.status(400).json({ msg: 'An error occured!' }));
+      } else {
+         res.status(404).json({ msg: 'Order not found! An error occured!' });
+      }
+   });
+});
+
+// Update Order to Delivered
+// PUT @/api/orders/:id/deliver
+// Private
+router.put('/:id/deliver', auth, (req, res) => {
+   Order.findById(req.params.id).then((order) => {
+      if (order) {
+         order.isDelivered = true;
+         order.deliveredAt = Date.now();
+
+         order
+            .save()
+            .then(() => res.status(201).json(order))
+            .catch(() => res.status(400).json({ msg: 'An error occured!' }));
+      } else {
+         res.status(404).json({ msg: 'Order not found! An error occured!' });
+      }
+   });
 });
 
 export default router;
