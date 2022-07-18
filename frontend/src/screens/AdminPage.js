@@ -35,7 +35,7 @@ const AdminPage = () => {
    const { msg } = errorState;
 
    useEffect(() => {
-      if (!user) {
+      if (!user || !user.isAdmin) {
          return navigate('/login/redirect=/');
       }
 
@@ -130,7 +130,7 @@ const AdminPage = () => {
 
                   {msg && <Message msg={msg} variant="error" box />}
 
-                  {users && users.length === 0 && (
+                  {products && products.length === 0 && (
                      <Message
                         msg="You have no Products! Create now"
                         variant="success"
@@ -188,7 +188,7 @@ const AdminPage = () => {
 
                   {msg && <Message msg={msg} variant="error" box />}
 
-                  {users && users.length === 0 && (
+                  {orders && orders.length === 0 && (
                      <Message msg="You have no Orders!" variant="success" box />
                   )}
 
@@ -220,7 +220,7 @@ const AdminPage = () => {
                                  </div>
                                  <div>
                                     <h5>
-                                       <Moment format="MM-DD-YYYY">
+                                       <Moment format="DD MMM YYYY">
                                           {order.createdAt}
                                        </Moment>
                                     </h5>

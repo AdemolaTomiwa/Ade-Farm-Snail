@@ -28,7 +28,7 @@ const AdminOrderPage = () => {
    const { msg } = errorState;
 
    useEffect(() => {
-      if (!user) {
+      if (!user || !user.isAdmin) {
          return navigate('/login/redirect=/');
       }
 

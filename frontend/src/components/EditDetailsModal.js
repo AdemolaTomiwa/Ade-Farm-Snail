@@ -44,6 +44,7 @@ const EditDetailsModal = ({ userObj, closeModal }) => {
                      onChange={(e) => setFirstName(e.target.value)}
                      type="text"
                      id="firstName"
+                     autoComplete="off"
                   />
                </div>
                <div>
@@ -53,6 +54,7 @@ const EditDetailsModal = ({ userObj, closeModal }) => {
                      onChange={(e) => setLastName(e.target.value)}
                      type="text"
                      id="lastName"
+                     autoComplete="off"
                   />
                </div>
                <div>
@@ -62,6 +64,7 @@ const EditDetailsModal = ({ userObj, closeModal }) => {
                      onChange={(e) => setPhoneNumber(e.target.value)}
                      type="text"
                      id="number"
+                     autoComplete="off"
                   />
                </div>
                {msg && <Message msg={msg} variant="error" box />}

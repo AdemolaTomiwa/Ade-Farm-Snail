@@ -160,6 +160,7 @@ const ProductPage = () => {
                                        id="comment"
                                        cols="30"
                                        rows="10"
+                                       autoComplete="off"
                                        value={comment}
                                        onChange={(e) =>
                                           setComment(e.target.value)

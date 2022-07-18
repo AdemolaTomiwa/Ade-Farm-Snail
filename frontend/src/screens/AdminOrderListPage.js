@@ -23,7 +23,7 @@ const AdminOrderListPage = () => {
 
    useEffect(() => {
       dispatch(clearErrors());
-      if (!user) {
+      if (!user || !user.isAdmin) {
          return navigate('/login/redirect=/');
       }
 
@@ -74,7 +74,7 @@ const AdminOrderListPage = () => {
                               </div>
                               <div>
                                  <h5>
-                                    <Moment format="MM-DD-YYYY">
+                                    <Moment format="DD MMM YYYY">
                                        {order.createdAt}
                                     </Moment>
                                  </h5>

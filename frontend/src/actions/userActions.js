@@ -37,22 +37,24 @@ import {
 } from '../constants/userConstants';
 import { returnErrors } from './errorActions';
 
-export const getUsers = () => (dispatch, getState) => {
-   dispatch({ type: USER_LIST_REQUEST });
+export const getUsers =
+   (keyword = '') =>
+   (dispatch, getState) => {
+      dispatch({ type: USER_LIST_REQUEST });
 
-   axios
-      .get('/api/users', tokenConfig(getState))
-      .then((res) => {
-         dispatch({
-            type: USER_LIST_SUCCESS,
-            payload: res.data,
+      axios
+         .get(`/api/users?keyword=${keyword}`, tokenConfig(getState))
+         .then((res) => {
+            dispatch({
+               type: USER_LIST_SUCCESS,
+               payload: res.data,
+            });
+         })
+         .catch((err) => {
+            dispatch(returnErrors(err.response.data.msg));
+            dispatch({ type: USER_LIST_FAIL });
          });
-      })
-      .catch((err) => {
-         dispatch(returnErrors(err.response.data.msg));
-         dispatch({ type: USER_LIST_FAIL });
-      });
-};
+   };
 
 export const getRecentUsers = () => (dispatch, getState) => {
    dispatch({ type: RECENT_USER_LIST_REQUEST });

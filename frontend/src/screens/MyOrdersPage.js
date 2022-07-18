@@ -72,7 +72,7 @@ const MyOrdersPage = () => {
                               </div>
                               <div>
                                  <h5>
-                                    <Moment format="MM-DD-YYYY">
+                                    <Moment format="DD MMM YYYY">
                                        {order.createdAt}
                                     </Moment>
                                  </h5>

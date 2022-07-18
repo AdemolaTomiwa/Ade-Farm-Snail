@@ -74,7 +74,8 @@ const PasswordReset = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         type={showPassword ? 'text' : 'password'}
-                        id="email"
+                        id="password"
+                        autoComplete="off"
                      />
                      <i
                         onClick={togglePassword}

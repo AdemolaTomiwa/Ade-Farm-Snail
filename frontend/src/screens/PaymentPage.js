@@ -44,6 +44,7 @@ const PaymentPage = () => {
                         id="Cash"
                         value={payment}
                         name="payment"
+                        autoComplete="off"
                         onChange={(e) => setPayment(e.target.id)}
                      />
                      <label htmlFor="Cash">Cash on Delivery</label>

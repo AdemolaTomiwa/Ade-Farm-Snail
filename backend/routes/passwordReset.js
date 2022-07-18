@@ -35,10 +35,15 @@ router.post('/', async (req, res) => {
       }
 
       const url = `${process.env.BASE_URL}/password-reset/${user._id}/${token.token}/`;
-      await sendEmail(user.email, 'Password Reset', url);
+      await sendEmail(
+         user.email,
+         'Resetting your Ade Farm Snails Password',
+         url,
+         user
+      );
 
       res.status(200).json({
-         msg: 'Password reset link sent to your email account!',
+         msg: 'Password reset link sent to your email account! Check your span if not in your inbox',
       });
    } catch (error) {
       res.status(400).json({ msg: 'An error occured!' });

@@ -59,7 +59,6 @@ const AdminCreateProductModal = ({ closeModal }) => {
             axios
                .post('/api/uploads', uploadObj)
                .then((res) => {
-                  // console.log(res.data);
                   setImage(res.data.url);
                   setPublic_id(res.data.public_id);
                   setLoadingUpload(false);
@@ -105,6 +104,7 @@ const AdminCreateProductModal = ({ closeModal }) => {
                      onChange={(e) => setName(e.target.value)}
                      type="text"
                      id="name"
+                     autoComplete="off"
                   />
                </div>
                <div>
@@ -114,6 +114,7 @@ const AdminCreateProductModal = ({ closeModal }) => {
                      onChange={(e) => setPrice(e.target.value)}
                      type="text"
                      id="price"
+                     autoComplete="off"
                   />
                </div>
                <div>
@@ -121,8 +122,7 @@ const AdminCreateProductModal = ({ closeModal }) => {
                   <textarea
                      name="description"
                      id="description"
-                     // cols="10"
-                     // rows="10"
+                     autoComplete="off"
                      value={description}
                      onChange={(e) => setDescription(e.target.value)}
                   ></textarea>

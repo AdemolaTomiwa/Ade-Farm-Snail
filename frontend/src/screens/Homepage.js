@@ -65,6 +65,10 @@ const Homepage = () => {
          {/* Products */}
          {loading && <Loader />}
 
+         {products && products.length === 0 && (
+            <Message msg="There is no products!" variant="success" box />
+         )}
+
          {msg && <Message msg={msg} variant="error" box />}
 
          <div className="products">

@@ -52,6 +52,7 @@ const ChangePasswordModal = ({ closeModal }) => {
                      onChange={(e) => setCurrentPassword(e.target.value)}
                      type={showPassword1 ? 'text' : 'password'}
                      id="currentPassword"
+                     autoComplete="off"
                   />
                   <i
                      onClick={() => setShowPassword1(!showPassword1)}
@@ -67,6 +68,7 @@ const ChangePasswordModal = ({ closeModal }) => {
                      onChange={(e) => setNewPassword(e.target.value)}
                      type={showPassword2 ? 'text' : 'password'}
                      id="newPassword"
+                     autoComplete="off"
                   />
                   <i
                      onClick={() => setShowPassword2(!showPassword2)}
@@ -82,6 +84,7 @@ const ChangePasswordModal = ({ closeModal }) => {
                      onChange={(e) => setConfirmPassword(e.target.value)}
                      type={showPassword3 ? 'text' : 'password'}
                      id="confirmPassword"
+                     autoComplete="off"
                   />
                   <i
                      onClick={() => setShowPassword3(!showPassword3)}

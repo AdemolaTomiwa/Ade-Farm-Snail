@@ -1,11 +1,9 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import crypto from 'crypto';
 
 import { auth } from '../middleware/auth.js';
 import Token from '../models/tokenModel.js';
-import sendEmail from '../middleware/sendEmail.js';
 
 const router = express.Router();
 
@@ -15,7 +13,32 @@ import User from '../models/userModel.js';
 // GET @/api/users
 // Private
 router.get('/', auth, (req, res) => {
-   User.find()
+   const keyword = req.query.keyword
+      ? {
+           $or: [
+              {
+                 firstName: {
+                    $regex: req.query.keyword,
+                    $options: 'i',
+                 },
+              },
+              {
+                 lastName: {
+                    $regex: req.query.keyword,
+                    $options: 'i',
+                 },
+              },
+              {
+                 email: {
+                    $regex: req.query.keyword,
+                    $options: 'i',
+                 },
+              },
+           ],
+        }
+      : {};
+
+   User.find({ ...keyword })
       .sort({ updatedAt: -1 })
       .then((user) => res.status(200).json(user))
       .catch(() => res.status(400).json({ msg: 'An error occured!' }));
@@ -113,21 +136,6 @@ router.post('/', (req, res) => {
                            });
                         }
                      );
-
-                     const token = new Token({
-                        userId: user._id,
-                        token: crypto.randomBytes(32).toString('hex'),
-                     });
-
-                     token.save().then((t) => {
-                        // console.log(t);
-
-                        const url = `${process.env.BASE_URL}/users/${user._id}/verify/${t.token}`;
-
-                        // console.log(url);
-
-                        sendEmail(user.email, 'Verify Email', url);
-                     });
                   })
                   .catch((err) => {
                      if (err) throw err;

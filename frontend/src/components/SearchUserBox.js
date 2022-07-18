@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SearchBox = () => {
+const AdminSearchUserBox = () => {
    const [keyword, setKeyword] = useState('');
 
    const navigate = useNavigate();
@@ -10,9 +10,9 @@ const SearchBox = () => {
       e.preventDefault();
 
       if (keyword.trim()) {
-         navigate(`/search/${keyword}`);
+         navigate(`/admin/search/users/${keyword}`);
       } else {
-         navigate('/search');
+         navigate('/all-users');
       }
    };
 
@@ -24,9 +24,9 @@ const SearchBox = () => {
                   type="text"
                   name="keyword"
                   value={keyword}
-                  onChange={(e) => setKeyword(e.target.value)}
-                  placeholder="Search for Products..."
                   autoComplete="off"
+                  onChange={(e) => setKeyword(e.target.value)}
+                  placeholder="Search for Users..."
                />
                {keyword.length === 0 ? (
                   <i onClick={onSubmit} className="fas fa-search"></i>
@@ -34,7 +34,7 @@ const SearchBox = () => {
                   <i
                      onClick={() => {
                         setKeyword('');
-                        navigate('/search');
+                        navigate('/all-users');
                      }}
                      className="fas"
                   >
@@ -47,4 +47,4 @@ const SearchBox = () => {
    );
 };
 
-export default SearchBox;
+export default AdminSearchUserBox;

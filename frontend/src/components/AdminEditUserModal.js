@@ -50,6 +50,7 @@ const AdminEditUserModal = ({ userObj, closeModal }) => {
                      onChange={(e) => setFirstName(e.target.value)}
                      type="text"
                      id="firstName"
+                     autoComplete="off"
                   />
                </div>
                <div>
@@ -58,6 +59,7 @@ const AdminEditUserModal = ({ userObj, closeModal }) => {
                      value={lastName}
                      onChange={(e) => setLastName(e.target.value)}
                      type="text"
+                     autoComplete="off"
                      id="lastName"
                   />
                </div>
@@ -67,6 +69,7 @@ const AdminEditUserModal = ({ userObj, closeModal }) => {
                      value={phoneNumber}
                      onChange={(e) => setPhoneNumber(e.target.value)}
                      type="text"
+                     autoComplete="off"
                      id="number"
                   />
                </div>
@@ -77,6 +80,7 @@ const AdminEditUserModal = ({ userObj, closeModal }) => {
                      checked={isAdmin}
                      type="checkbox"
                      name="isAdmin"
+                     autoComplete="off"
                      id="isAdmin"
                   />
                   <label htmlFor="isAdmin">Is Admin</label>

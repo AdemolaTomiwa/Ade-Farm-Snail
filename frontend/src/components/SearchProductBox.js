@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SearchBox = () => {
+const AdminSearchProductBox = () => {
    const [keyword, setKeyword] = useState('');
 
    const navigate = useNavigate();
@@ -10,9 +10,9 @@ const SearchBox = () => {
       e.preventDefault();
 
       if (keyword.trim()) {
-         navigate(`/search/${keyword}`);
+         navigate(`/admin/search/products/${keyword}`);
       } else {
-         navigate('/search');
+         navigate('/all-products');
       }
    };
 
@@ -34,7 +34,7 @@ const SearchBox = () => {
                   <i
                      onClick={() => {
                         setKeyword('');
-                        navigate('/search');
+                        navigate('/all-products');
                      }}
                      className="fas"
                   >
@@ -47,4 +47,4 @@ const SearchBox = () => {
    );
 };
 
-export default SearchBox;
+export default AdminSearchProductBox;

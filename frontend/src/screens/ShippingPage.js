@@ -65,6 +65,7 @@ const ShippingPage = () => {
                         onChange={(e) => setAddress(e.target.value)}
                         type="text"
                         id="address"
+                        autoComplete="off"
                      />
                   </div>
                   <div>
@@ -74,6 +75,7 @@ const ShippingPage = () => {
                         onChange={(e) => setCity(e.target.value)}
                         type="text"
                         id="city"
+                        autoComplete="off"
                      />
                   </div>
                   <div>
@@ -83,6 +85,7 @@ const ShippingPage = () => {
                         onChange={(e) => setPostalCode(e.target.value)}
                         type="text"
                         id="postalCode"
+                        autoComplete="off"
                      />
                   </div>
                   <div>
@@ -91,6 +94,7 @@ const ShippingPage = () => {
                         id="country"
                         value={country}
                         type="text"
+                        autoComplete="off"
                         onChange={(e) => setCountry(e.target.value)}
                      />
                   </div>

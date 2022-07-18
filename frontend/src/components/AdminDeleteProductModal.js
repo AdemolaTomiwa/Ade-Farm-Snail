@@ -29,10 +29,7 @@ const AdminDeleteProductModal = ({ closeModal, id, publicId }) => {
                <h3>Are you sure?</h3>
             </div>
             <div className="button">
-               <button
-                  onClick={deleteProductHandler}
-                  className="btn btn-danger"
-               >
+               <button onClick={deleteProductHandler} className="btn btn-white">
                   {loading ? <Loader /> : 'Yes'}
                </button>
                <button onClick={closeModal} className="btn btn-white">

@@ -69,6 +69,7 @@ const RegisterPage = () => {
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         type="text"
+                        autoComplete="off"
                         id="firstName"
                      />
                   </div>
@@ -79,6 +80,7 @@ const RegisterPage = () => {
                         onChange={(e) => setLastName(e.target.value)}
                         type="text"
                         id="lastName"
+                        autoComplete="off"
                      />
                   </div>
                   <div>
@@ -87,6 +89,7 @@ const RegisterPage = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         type="email"
+                        autoComplete="off"
                         id="email"
                      />
                   </div>
@@ -97,6 +100,7 @@ const RegisterPage = () => {
                         onChange={(e) => setPhoneNumber(e.target.value)}
                         type="text"
                         id="number"
+                        autoComplete="off"
                      />
                   </div>
                   <div className="password">
@@ -105,6 +109,7 @@ const RegisterPage = () => {
                         type={showPassword ? 'text' : 'password'}
                         id="password"
                         value={password}
+                        autoComplete="off"
                         onChange={(e) => setPassword(e.target.value)}
                      />
                      <i

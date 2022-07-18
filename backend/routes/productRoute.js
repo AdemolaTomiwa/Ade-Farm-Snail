@@ -116,7 +116,7 @@ router.post('/:id/reviews', auth, (req, res) => {
          );
 
          if (alreadyReviewed) {
-            res.status(400).json({ msg: 'Product already reviewed!' });
+            res.status(400).json({ msg: 'Product already reviewed by you!' });
          } else {
             if (!rating || !comment) {
                res.status(400).json({ msg: 'Please enter all fields!' });

@@ -34,21 +34,6 @@ const ForgotPasswordPage = () => {
       };
 
       dispatch(forgotPassword(emailObj));
-      // try {
-      //    const url = `/api/password-reset`;
-      //    const { data } = await axios.post(url, { email });
-      //    setMsg(data.msg);
-      //    setError('');
-      // } catch (error) {
-      //    if (
-      //       error.response &&
-      //       error.response.status >= 400 &&
-      //       error.response.status <= 500
-      //    ) {
-      //       setError(error.response.data.msg);
-      //       setMsg('');
-      //    }
-      // }
    };
 
    return (
@@ -68,6 +53,7 @@ const ForgotPasswordPage = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         type="email"
                         id="email"
+                        autoComplete="off"
                      />
                   </div>
                   {msg && <Message msg={msg} variant="error" box />}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Moment from 'react-moment';
 import Showcase from '../components/Showcase';
 import { getProducts } from '../actions/productActions';
@@ -8,10 +8,12 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import AdminCreateProductModal from '../components/AdminCreateProductModal';
 import { clearErrors } from '../actions/errorActions';
+import AdminSearchProductBox from '../components/SearchProductBox';
 
 const AdminProductListPage = () => {
    const dispatch = useDispatch();
    const navigate = useNavigate();
+   const params = useParams();
 
    const [openProductModal, setOpenProductModal] = useState(false);
 
@@ -26,12 +28,12 @@ const AdminProductListPage = () => {
 
    useEffect(() => {
       dispatch(clearErrors());
-      if (!user) {
+      if (!user || !user.isAdmin) {
          return navigate('/login/redirect=/');
       }
 
-      dispatch(getProducts());
-   }, [navigate, user, dispatch]);
+      dispatch(getProducts(params.keyword));
+   }, [navigate, user, dispatch, params]);
 
    return (
       <div className="adminproductlistpage">
@@ -50,6 +52,8 @@ const AdminProductListPage = () => {
                         <i className="fas fa-plus"></i> Create new Product{' '}
                      </div>
                   </div>
+
+                  <AdminSearchProductBox />
 
                   {loading && <Loader />}
 
@@ -81,7 +85,7 @@ const AdminProductListPage = () => {
                               </div>
                               <div>
                                  <h5>
-                                    <Moment format="MM-DD-YYYY">
+                                    <Moment format="DD MMM YYYY">
                                        {product.createdAt}
                                     </Moment>
                                  </h5>

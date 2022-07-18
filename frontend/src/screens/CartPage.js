@@ -15,8 +15,6 @@ const CartPage = ({ location }) => {
    const id = params.id ? params.id : null;
    const headQty = params.qty ? Number(params.qty.split('=')[1]) : 1;
 
-   // const [qty, setQty] = useState('1');
-
    const cartState = useSelector((state) => state.cart);
    const { cartItems, success } = cartState;
 
@@ -84,6 +82,12 @@ const CartPage = ({ location }) => {
                         </span>
                      </div>
                      <div className="button">
+                        <button
+                           onClick={() => navigate('/products')}
+                           className="btn btn-primary"
+                        >
+                           Continue Shopping
+                        </button>
                         <button
                            onClick={checkOutHandler}
                            className="btn btn-primary"

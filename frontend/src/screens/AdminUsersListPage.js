@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Showcase from '../components/Showcase';
 import { getUsers } from '../actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import AdminCreateUserModal from '../components/AdminCreateUserModal';
 import { clearErrors } from '../actions/errorActions';
+import AdminSearchUserBox from '../components/SearchUserBox';
 
 const AdminUserListPage = () => {
    const dispatch = useDispatch();
    const navigate = useNavigate();
+   const params = useParams();
 
    const [openUserModal, setOpenUserModal] = useState(false);
 
@@ -25,12 +27,12 @@ const AdminUserListPage = () => {
 
    useEffect(() => {
       dispatch(clearErrors());
-      if (!user) {
+      if (!user || !user.isAdmin) {
          return navigate('/login/redirect=/');
       }
 
-      dispatch(getUsers());
-   }, [navigate, user, dispatch]);
+      dispatch(getUsers(params.keyword));
+   }, [navigate, user, dispatch, params]);
 
    return (
       <div className="adminuserlistpage">
@@ -49,17 +51,14 @@ const AdminUserListPage = () => {
                         <i className="fas fa-plus"></i> Create new User{' '}
                      </div>
                   </div>
+                  <AdminSearchUserBox />
 
                   {loading && <Loader />}
 
                   {msg && <Message msg={msg} variant="error" box />}
 
                   {users && users.length === 0 && (
-                     <Message
-                        msg="You have no Users! Create Now"
-                        variant="success"
-                        box
-                     />
+                     <Message msg="You have no Users!" variant="success" box />
                   )}
 
                   {users &&

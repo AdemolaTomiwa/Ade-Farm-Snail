@@ -29,7 +29,7 @@ const UserPage = () => {
    const { msg } = errorState;
 
    useEffect(() => {
-      if (!loginState.user) {
+      if (!loginState.user || !loginState.user.isAdmin) {
          return navigate('/login/redirect=/');
       }
 
@@ -108,7 +108,7 @@ const UserPage = () => {
                                  </div>
                                  <div>
                                     <h5>
-                                       <Moment format="MM-DD-YYYY">
+                                       <Moment format="DD MMM YYYY">
                                           {order.createdAt}
                                        </Moment>
                                     </h5>

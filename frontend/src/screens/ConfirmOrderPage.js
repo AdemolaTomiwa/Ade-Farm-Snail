@@ -39,7 +39,7 @@ const ConfirmOrderPage = () => {
       cartItems.reduce((a, c) => a + c.qty * c.price, 0)
    );
 
-   const shippingPrice = toPrice(itemPrice < 1000 ? toPrice(0) : toPrice(10));
+   const shippingPrice = toPrice(itemPrice < 1000 ? toPrice(0) : toPrice(3000));
 
    const totalPrice = toPrice(itemPrice + shippingPrice);
 

@@ -96,7 +96,15 @@ class App extends Component {
                         path="/all-products"
                         element={<AdminProductListPage />}
                      />
+                     <Route
+                        path="/admin/search/products/:keyword"
+                        element={<AdminProductListPage />}
+                     />
                      <Route path="/all-users" element={<AdminUserListPage />} />
+                     <Route
+                        path="/admin/search/users/:keyword"
+                        element={<AdminUserListPage />}
+                     />
                      <Route path="/user/:id" element={<UserPage />} />
                   </Routes>
                </div>

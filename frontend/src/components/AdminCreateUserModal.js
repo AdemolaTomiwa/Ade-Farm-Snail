@@ -64,6 +64,7 @@ const AdminCreateUserModal = ({ closeModal }) => {
                      onChange={(e) => setFirstName(e.target.value)}
                      type="text"
                      id="firstName"
+                     autoComplete="off"
                   />
                </div>
                <div>
@@ -73,6 +74,7 @@ const AdminCreateUserModal = ({ closeModal }) => {
                      onChange={(e) => setLastName(e.target.value)}
                      type="text"
                      id="lastName"
+                     autoComplete="off"
                   />
                </div>
                <div>
@@ -82,6 +84,7 @@ const AdminCreateUserModal = ({ closeModal }) => {
                      onChange={(e) => setEmail(e.target.value)}
                      type="email"
                      id="email"
+                     autoComplete="off"
                   />
                </div>
                <div>
@@ -91,6 +94,7 @@ const AdminCreateUserModal = ({ closeModal }) => {
                      onChange={(e) => setPhoneNumber(e.target.value)}
                      type="text"
                      id="number"
+                     autoComplete="off"
                   />
                </div>
                <div className="password">
@@ -99,6 +103,7 @@ const AdminCreateUserModal = ({ closeModal }) => {
                      type={showPassword ? 'text' : 'password'}
                      id="password"
                      value={password}
+                     autoComplete="off"
                      onChange={(e) => setPassword(e.target.value)}
                   />
                   <i
